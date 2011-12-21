@@ -12,6 +12,12 @@ object AOJAPIs extends QueryWrapper {
     queries.withFilter(null !=).map(p => "%s=%s".format(p.field, p.value)).mkString("?", "&", "")
   }
 
+  def loadXML(params: String) = {
+    val ret = XML.load(new URL(basedURL + params))
+    Thread.sleep(SLEEP_TIME)
+    ret
+  }
+
   /**
    * Provides detailed information of the specific user.
    *
@@ -22,8 +28,7 @@ object AOJAPIs extends QueryWrapper {
     require(id.length >= 1, "User ID is invalid.")
 
     // get
-    val userXml = XML.load(new URL(basedURL + "user?id=" + id))
-    Thread.sleep(SLEEP_TIME)
+    val userXml = loadXML("user?id=" + id)
 
     User(userXml)
   }
@@ -38,8 +43,7 @@ object AOJAPIs extends QueryWrapper {
     require(4 <= id.length() && id.length() <= 5 && id.forall(_.isDigit), "Problem ID is invalid.")
 
     // get
-    val problemXml = XML.load(new URL(basedURL + "problem?id=" + id))
-    Thread.sleep(SLEEP_TIME)
+    val problemXml = loadXML("problem?id=" + id)
 
     Problem(problemXml)
   }
@@ -54,8 +58,7 @@ object AOJAPIs extends QueryWrapper {
     require(0 <= volume && volume <= 100, "Volume No is invalid.")
 
     // get
-    val problem_listXml = XML.load(new URL(basedURL + "problem_list?volume=" + volume))
-    Thread.sleep(SLEEP_TIME)
+    val problem_listXml = loadXML("problem_list?volume=" + volume)
 
     ProblemList(problem_listXml)
   }
@@ -63,7 +66,7 @@ object AOJAPIs extends QueryWrapper {
   /**
    * Provides a list of users meeting specified criteria.
    *
-   * @param criteria Criteria for sotring. 0 = order by solved, 1 = order by rating.
+   * @param criteria Criteria for sorting. 0 = order by solved, 1 = order by rating.
    * @param affiliation A substring in the affiliation.
    * @param solved_min The service returns a list of users who solved at least solved_min problems.
    * @param solved_max The service returns a list of users who solved at most solved_max problems.
@@ -75,11 +78,10 @@ object AOJAPIs extends QueryWrapper {
     }
 
     // get
-    val encoded_affiliation = if(affiliation == null) null else Affiliation(URLEncoder.encode(affiliation.value, "UTF-8"))
+    val encoded_affiliation = if (affiliation == null) null else Affiliation(URLEncoder.encode(affiliation.value, "UTF-8"))
     val query = joinQuery(criteria, encoded_affiliation, solved_min, solved_max)
 
-    val user_listXml = XML.load(new URL(basedURL + "user_list" + query))
-    Thread.sleep(SLEEP_TIME)
+    val user_listXml = loadXML("user_list" + query)
 
     UserList(user_listXml)
   }
@@ -103,8 +105,7 @@ object AOJAPIs extends QueryWrapper {
     // get
     val query = joinQuery(user_id, problem_id, language, date_begin, date_end)
 
-    val solved_recordXml = XML.load(new URL(basedURL + "solved_record" + query))
-    Thread.sleep(SLEEP_TIME)
+    val solved_recordXml = loadXML("solved_record" + query)
 
     SolvedRecord(solved_recordXml)
   }
@@ -115,7 +116,7 @@ object AOJAPIs extends QueryWrapper {
    * @param user_id User ID.
    * @param problem_id Problem ID.
    * @param start Start position.
-   * @param limit The number of records. (1 ≤ limit ≤ 20)
+   * @param limit The number of records. (1 <= limit <= 20)
    */
   def status_log(user_id: UserID = null, problem_id: ProblemID = null, start: Start = null, limit: Limit = null): StatusLog = {
     // check
@@ -126,8 +127,7 @@ object AOJAPIs extends QueryWrapper {
     // get
     val query = joinQuery(user_id, problem_id, start, limit)
 
-    val status_logXml = XML.load(new URL(basedURL + "status_log" + query))
-    Thread.sleep(SLEEP_TIME)
+    val status_logXml = loadXML("status_log" + query)
 
     StatusLog(status_logXml)
   }
@@ -164,8 +164,7 @@ object AOJAPIs extends QueryWrapper {
     // get
     val query = joinQuery(id, category)
 
-    val problem_categoryXml = XML.load(new URL(basedURL + "problem_category" + query))
-    Thread.sleep(SLEEP_TIME)
+    val problem_categoryXml = loadXML("problem_category" + query)
 
     ProblemCategory(problem_categoryXml)
   }
@@ -180,8 +179,7 @@ object AOJAPIs extends QueryWrapper {
     require(id.forall(_.isDigit), "Problem ID is invalid.")
 
     // get
-    val sourceXml = XML.load(new URL(basedURL + "source?id=" + id))
-    Thread.sleep(SLEEP_TIME)
+    val sourceXml = loadXML("source?id=" + id)
 
     Source(sourceXml)
   }
