@@ -3,11 +3,11 @@ package jp.gr.java_conf.shora_kujira16.aoj4s
 import scala.xml.Elem
 import scala.xml.NodeSeq
 
-import AOJXMLContents.NodeSeq2AOJXML
+import XMLUtil.NodeSeq2AOJXML
 
-case class SolvedRecord(solved_recordXml: Elem) {
+protected case class SolvedRecord(solved_recordXml: Elem) {
 
-  case class SolvedStruct(solvedXml: NodeSeq) {
+  protected case class SolvedStruct(solvedXml: NodeSeq) {
     lazy val run_id: Int = (solvedXml \ "run_id" content ()).toInt
 
     lazy val user_id: String = solvedXml \ "user_id" content ()

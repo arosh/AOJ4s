@@ -3,9 +3,9 @@ package jp.gr.java_conf.shora_kujira16.aoj4s
 import scala.xml.Elem
 import scala.xml.NodeSeq
 
-import AOJXMLContents.NodeSeq2AOJXML
+import XMLUtil.NodeSeq2AOJXML
 
-case class User(userXml: Elem) {
+protected case class User(userXml: Elem) {
   lazy val id: String = userXml \ "id" content ()
 
   lazy val name: String = userXml \ "name" content ()
@@ -16,7 +16,7 @@ case class User(userXml: Elem) {
 
   lazy val lastsubmitdate: Long = (userXml \ "lastsubmitdate" content ()).toLong
 
-  case class StatusStruct(statusXml: NodeSeq) {
+  protected case class StatusStruct(statusXml: NodeSeq) {
     lazy val submission: Int = (statusXml \ "submission" content ()).toInt
 
     lazy val solved: Int = (statusXml \ "solved" content ()).toInt
@@ -38,7 +38,7 @@ case class User(userXml: Elem) {
 
   lazy val status = StatusStruct(userXml \ "status")
 
-  case class ProblemStruct(problemXml: NodeSeq) {
+  protected case class ProblemStruct(problemXml: NodeSeq) {
     lazy val id: String = problemXml \ "id" content ()
 
     lazy val submissiondate: Long = (problemXml \ "submissiondate" content ()).toLong

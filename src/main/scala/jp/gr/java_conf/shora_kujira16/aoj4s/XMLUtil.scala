@@ -2,9 +2,9 @@ package jp.gr.java_conf.shora_kujira16.aoj4s
 
 import scala.xml.NodeSeq
 
-object AOJXMLContents {
+protected object XMLUtil {
 
-  class AOJXML(data: NodeSeq) {
+  protected class AOJXML(data: NodeSeq) {
     def content() = data.text.replaceAll("\n", "")
   }
 

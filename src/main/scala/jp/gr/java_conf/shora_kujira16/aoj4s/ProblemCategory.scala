@@ -3,11 +3,11 @@ package jp.gr.java_conf.shora_kujira16.aoj4s
 import scala.xml.Elem
 import scala.xml.NodeSeq
 
-import AOJXMLContents.NodeSeq2AOJXML
+import XMLUtil.NodeSeq2AOJXML
 
-case class ProblemCategory(problem_categoryXml: Elem) {
+protected case class ProblemCategory(problem_categoryXml: Elem) {
 
-  case class ProblemStruct(problemXml: NodeSeq) {
+  protected case class ProblemStruct(problemXml: NodeSeq) {
     lazy val id: String = problemXml \ "id" content ()
 
     lazy val category: String = problemXml \ "category" content ()
