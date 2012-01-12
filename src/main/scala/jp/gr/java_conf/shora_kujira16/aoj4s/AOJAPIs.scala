@@ -38,7 +38,7 @@ object AOJAPIs extends QueryWrapper {
     val userXml = loadXML("user?id=" + id)
 
     userXml.map {
-      case x => User(x)
+      x => User(x)
     }
   }
 
@@ -55,7 +55,7 @@ object AOJAPIs extends QueryWrapper {
     val problemXml = loadXML("problem?id=" + id)
 
     problemXml.map {
-      case x => Problem(x)
+      x => Problem(x)
     }
   }
 
@@ -72,7 +72,7 @@ object AOJAPIs extends QueryWrapper {
     val problem_listXml = loadXML("problem_list?volume=" + volume)
 
     problem_listXml.map {
-      case x => ProblemList(x)
+      x => ProblemList(x)
     }
   }
 
@@ -97,7 +97,7 @@ object AOJAPIs extends QueryWrapper {
     val user_listXml = loadXML("user_list" + query)
 
     user_listXml.map {
-      case x => UserList(x)
+      x => UserList(x)
     }
   }
 
@@ -123,7 +123,7 @@ object AOJAPIs extends QueryWrapper {
     val solved_recordXml = loadXML("solved_record" + query)
 
     solved_recordXml.map {
-      case x => SolvedRecord(x)
+      x => SolvedRecord(x)
     }
   }
 
@@ -147,7 +147,7 @@ object AOJAPIs extends QueryWrapper {
     val status_logXml = loadXML("status_log" + query)
 
     status_logXml.map {
-      case x => StatusLog(x)
+      x => StatusLog(x)
     }
   }
 
@@ -186,7 +186,7 @@ object AOJAPIs extends QueryWrapper {
     val problem_categoryXml = loadXML("problem_category" + query)
 
     problem_categoryXml.map {
-      case x => ProblemCategory(x)
+      x => ProblemCategory(x)
     }
   }
 
@@ -203,7 +203,7 @@ object AOJAPIs extends QueryWrapper {
     val sourceXml = loadXML("source?id=" + id)
 
     sourceXml.map {
-      case x => Source(x)
+      x => Source(x)
     }
   }
 }
