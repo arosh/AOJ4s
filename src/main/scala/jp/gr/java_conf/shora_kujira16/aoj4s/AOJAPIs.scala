@@ -4,6 +4,8 @@ import java.net.URL
 import java.net.URLEncoder
 import xml.XML
 
+import jp.gr.java_conf.shora_kujira16.aoj4s.queries._
+
 object AOJAPIs extends QueryWrapper {
   var basedURL = "http://judge.u-aizu.ac.jp/onlinejudge/webservice/"
   var SLEEP_TIME = 10000
