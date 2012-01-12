@@ -5,7 +5,7 @@ import scala.xml.NodeSeq
 protected object XMLUtil {
 
   protected class AOJXML(data: NodeSeq) {
-    def content() = data.text.replaceAll("\n", "")
+    def content(): String = data.text.replaceAll("\n", "")
   }
 
   implicit def NodeSeq2AOJXML(x: NodeSeq) = new AOJXML(x)
