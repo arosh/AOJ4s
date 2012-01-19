@@ -7,7 +7,7 @@ import xml.XML
 import queries._
 import info._
 
-package object aoj4s extends QueryWrapper {
+object AOJAPIs extends QueryWrapper {
   var basedURL = "http://judge.u-aizu.ac.jp/onlinejudge/webservice/"
   var SLEEP_TIME = 10000
 
