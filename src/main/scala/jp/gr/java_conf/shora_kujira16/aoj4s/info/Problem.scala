@@ -1,11 +1,11 @@
-package jp.gr.java_conf.shora_kujira16.aoj4s
+package jp.gr.java_conf.shora_kujira16.aoj4s.info
 
 import scala.xml.Elem
 import scala.xml.NodeSeq
 
-import XMLUtil.NodeSeq2AOJXML
+import XMLUtils.NodeSeq2AOJXML
 
-protected case class Problem(problemXml: Elem) {
+case class Problem(problemXml: Elem) {
   lazy val id: String = problemXml \ "id" content ()
 
   lazy val name: String = problemXml \ "name" content ()
@@ -16,7 +16,7 @@ protected case class Problem(problemXml: Elem) {
 
   lazy val problemmemorylimit: Int = (problemXml \ "problemmemorylimit" content ()).toInt
 
-  protected case class StatusStruct(statusXml: NodeSeq) {
+  case class StatusStruct(statusXml: NodeSeq) {
     lazy val submission: Int = (statusXml \ "submission" content ()).toInt
 
     lazy val accepted: Int = (statusXml \ "accepted" content ()).toInt
@@ -34,7 +34,7 @@ protected case class Problem(problemXml: Elem) {
 
   lazy val status = StatusStruct(problemXml \ "status")
 
-  protected case class UserStruct(userXml: NodeSeq) {
+  case class UserStruct(userXml: NodeSeq) {
     lazy val id: String = userXml \ "id" content ()
 
     lazy val submissiondate: Long = (userXml \ "submissiondate" content ()).toLong

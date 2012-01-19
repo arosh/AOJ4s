@@ -1,13 +1,13 @@
-package jp.gr.java_conf.shora_kujira16.aoj4s
+package jp.gr.java_conf.shora_kujira16.aoj4s.info
 
 import scala.xml.Elem
 import scala.xml.NodeSeq
 
-import XMLUtil.NodeSeq2AOJXML
+import XMLUtils.NodeSeq2AOJXML
 
-protected case class StatusLog(status_logXml: Elem) {
+case class StatusLog(status_logXml: Elem) {
 
-  protected case class StatusStruct(statusXml: NodeSeq) {
+  case class StatusStruct(statusXml: NodeSeq) {
     lazy val run_id: Int = (statusXml \ "run_id" content ()).toInt
 
     lazy val user_id: String = statusXml \ "user_id" content ()

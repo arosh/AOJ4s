@@ -1,10 +1,10 @@
-package jp.gr.java_conf.shora_kujira16.aoj4s
+package jp.gr.java_conf.shora_kujira16.aoj4s.info
 
 import scala.xml.Elem
 
-import XMLUtil.NodeSeq2AOJXML
+import XMLUtils.NodeSeq2AOJXML
 
-protected case class Source(sourceXml: Elem) {
+case class Source(sourceXml: Elem) {
   lazy val id: String = sourceXml \ "id" content ()
 
   lazy val title: String = sourceXml \ "title" content ()

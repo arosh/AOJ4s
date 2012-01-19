@@ -1,13 +1,13 @@
-package jp.gr.java_conf.shora_kujira16.aoj4s
+package jp.gr.java_conf.shora_kujira16.aoj4s.info
 
 import scala.xml.Elem
 import scala.xml.NodeSeq
 
-import XMLUtil.NodeSeq2AOJXML
+import XMLUtils.NodeSeq2AOJXML
 
-protected case class UserList(user_listXml: Elem) {
+case class UserList(user_listXml: Elem) {
 
-  protected case class UserStruct(userXml: NodeSeq) {
+  case class UserStruct(userXml: NodeSeq) {
     lazy val rank: Int = (userXml \ "rank" content ()).toInt
 
     lazy val id: String = userXml \ "id" content ()
