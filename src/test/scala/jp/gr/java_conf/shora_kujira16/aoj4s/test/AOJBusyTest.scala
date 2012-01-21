@@ -2,7 +2,7 @@ package jp.gr.java_conf.shora_kujira16.aoj4s.test
 
 import org.scalatest.FunSuite
 import org.scalatest.matchers.MustMatchers
-import jp.gr.java_conf.shora_kujira16.aoj4s.AOJAPIs._
+import jp.gr.java_conf.shora_kujira16.aoj4s.AOJ._
 
 class AOJBusyTest extends FunSuite with MustMatchers {
   ignore("AOJに繋がらないとき、Noneを返す") {

@@ -7,7 +7,7 @@ import xml.XML
 import queries._
 import info._
 
-object AOJAPIs extends QueryWrapper {
+object AOJ extends QueryWrapper {
   var basedURL = "http://judge.u-aizu.ac.jp/onlinejudge/webservice/"
   var SLEEP_TIME = 10000
 
@@ -150,21 +150,6 @@ object AOJAPIs extends QueryWrapper {
     status_logXml.map {
       x => StatusLog(x)
     }
-  }
-
-  object categories {
-    val SF = "straight"
-    val DM = "datamanipu"
-    val SM = "simulation"
-    val ST = "string"
-    val PR = "parsing"
-    val PZ = "puzzle"
-    val CG = "geometry"
-    val GR = "graph"
-    val NS = "numeric"
-    val CP = "combinatorial"
-    val NT = "number"
-    val PB = "probability"
   }
 
   /**
