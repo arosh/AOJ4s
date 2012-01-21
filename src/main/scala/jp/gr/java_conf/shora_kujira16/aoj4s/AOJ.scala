@@ -11,7 +11,7 @@ object AOJ extends QueryWrapper {
   var basedURL = "http://judge.u-aizu.ac.jp/onlinejudge/webservice/"
   var SLEEP_TIME = 10000
 
-  private def joinQuery[T <: Query[Any]](queries: T*): String = {
+  private def joinQuery[T <: Query[_]](queries: T*): String = {
     queries.withFilter(null !=).map(p => "%s=%s".format(p.field, p.value)).mkString("?", "&", "")
   }
 
