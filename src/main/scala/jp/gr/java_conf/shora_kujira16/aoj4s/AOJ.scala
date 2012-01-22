@@ -55,7 +55,11 @@ object AOJ extends QueryWrapper {
     // get
     val problemXml = loadXML("problem?id=" + id)
 
-    problemXml.map {
+    problemXml filter {
+      x =>
+        x != <problem>
+             </problem>
+    } map {
       x => Problem(x)
     }
   }
