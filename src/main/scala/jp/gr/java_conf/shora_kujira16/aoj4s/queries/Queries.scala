@@ -1,6 +1,6 @@
 package jp.gr.java_conf.shora_kujira16.aoj4s.queries
 
-sealed abstract class Query[+A](val field: String) {
+sealed abstract class Query[A](val field: String) {
   def value: A
 }
 
