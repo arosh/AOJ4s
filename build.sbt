@@ -1,6 +1,8 @@
-name := "AOJ4s"
+name := "aoj4s"
 
-version := "1.0"
+version := "0.1"
+
+organization := "jp.gr.java_conf.shora_kujira16"
 
 scalaVersion := "2.9.1"
 
