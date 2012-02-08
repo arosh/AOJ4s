@@ -4,7 +4,7 @@ package test
 import org.scalatest.FunSuite
 import org.scalatest.matchers.MustMatchers
 
-import jp.gr.java_conf.shora_kujira16.aoj4s.AOJ._
+import AOJ._
 
 class ProblemTest extends FunSuite with MustMatchers {
   SLEEP_TIME = 1000
@@ -30,7 +30,7 @@ class ProblemTest extends FunSuite with MustMatchers {
     problem("30000") must be === None
   }
 
-  test("情報は正しい") {
+  ignore("情報は正しい") {
     val x = problem("0518")
     x must not be (None)
     x.get.id must be === "0518"

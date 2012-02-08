@@ -4,7 +4,7 @@ import java.net.URL
 import java.net.URLEncoder
 import xml.XML
 
-import queries._
+import query._
 import info._
 
 object AOJ extends QueryWrapper {

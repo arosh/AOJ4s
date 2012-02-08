@@ -3,7 +3,6 @@ package test
 
 import org.scalatest.FunSuite
 import org.scalatest.matchers.MustMatchers
-import jp.gr.java_conf.shora_kujira16.aoj4s.{ AOJ, CATEGORIES }
 import AOJ._
 
 class AOJBusyTest extends FunSuite with MustMatchers {
