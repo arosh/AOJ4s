@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+			<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" ></meta>
+        <title>com/github/arosh/aoj4s/info/Source.scala</title>
+        <script type="text/javascript" src="../../../../../jquery-all.js"></script>
+        <script type="text/javascript" src="../../../../../linked.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../../../../style.css" title="Style"></link>
+    </head>
+    <body>
+        <pre>
+<span class="keyword">package</span> com.github.arosh.aoj4s
+<span class="keyword">package</span> info
+
+<span class="keyword">import</span> scala.xml.Elem
+
+<span class="keyword">import</span> <a href="XMLUtils.scala.html#9542" title="object com.github.arosh.aoj4s.info.XMLUtils">XMLUtils</a>.NodeSeq2AOJXML
+
+case <span class="keyword">class</span> <a title="class Source extends java.lang.Object with ScalaObject with Product with Serializable" id="28544">Source</a><a href="#28544" title="ScalaObject" class="delimiter">(</a><a title="scala.xml.Elem" id="27240">sourceXml</a>: <span title="scala.xml.Elem">Elem</span><span class="delimiter">)</span> <span class="delimiter">{</span>
+  <span class="keyword">lazy</span> <span class="keyword">val</span> <a title="String" id="27208">id</a>: <span title="String">String</span> = <a href="#27240" title="=&gt; scala.xml.Elem">sourceXml</a> <a href="XMLUtils.scala.html#27309" title="implicit com.github.arosh.aoj4s.info.XMLUtils.NodeSeq2AOJXML : (x: scala.xml.NodeSeq)java.lang.Object{def content(): String}">\</a> <span title="java.lang.String(&quot;id&quot;)" class="string">&quot;id&quot;</span> <a href="XMLUtils.scala.html#27412" title="()String">content</a> <span class="delimiter">(</span><span class="delimiter">)</span>
+
+  <span class="keyword">lazy</span> <span class="keyword">val</span> <a title="String" id="27210">title</a>: <span title="String">String</span> = <a href="#27240" title="=&gt; scala.xml.Elem">sourceXml</a> <a href="XMLUtils.scala.html#27309" title="implicit com.github.arosh.aoj4s.info.XMLUtils.NodeSeq2AOJXML : (x: scala.xml.NodeSeq)java.lang.Object{def content(): String}">\</a> <span title="java.lang.String(&quot;title&quot;)" class="string">&quot;title&quot;</span> <a href="XMLUtils.scala.html#27412" title="()String">content</a> <span class="delimiter">(</span><span class="delimiter">)</span>
+
+  <span class="keyword">lazy</span> <span class="keyword">val</span> <a title="String" id="27212">subtitle</a>: <span title="String">String</span> = <a href="#27240" title="=&gt; scala.xml.Elem">sourceXml</a> <a href="XMLUtils.scala.html#27309" title="implicit com.github.arosh.aoj4s.info.XMLUtils.NodeSeq2AOJXML : (x: scala.xml.NodeSeq)java.lang.Object{def content(): String}">\</a> <span title="java.lang.String(&quot;subtitle&quot;)" class="string">&quot;subtitle&quot;</span> <a href="XMLUtils.scala.html#27412" title="()String">content</a> <span class="delimiter">(</span><span class="delimiter">)</span>
+
+  <span class="keyword">lazy</span> <span class="keyword">val</span> <a title="String" id="27214">place</a>: <span title="String">String</span> = <a href="#27240" title="=&gt; scala.xml.Elem">sourceXml</a> <a href="XMLUtils.scala.html#27309" title="implicit com.github.arosh.aoj4s.info.XMLUtils.NodeSeq2AOJXML : (x: scala.xml.NodeSeq)java.lang.Object{def content(): String}">\</a> <span title="java.lang.String(&quot;place&quot;)" class="string">&quot;place&quot;</span> <a href="XMLUtils.scala.html#27412" title="()String">content</a> <span class="delimiter">(</span><span class="delimiter">)</span>
+
+  <span class="keyword">lazy</span> <span class="keyword">val</span> <a title="String" id="27216">abbr</a>: <span title="String">String</span> = <a href="#27240" title="=&gt; scala.xml.Elem">sourceXml</a> <a href="XMLUtils.scala.html#27309" title="implicit com.github.arosh.aoj4s.info.XMLUtils.NodeSeq2AOJXML : (x: scala.xml.NodeSeq)java.lang.Object{def content(): String}">\</a> <span title="java.lang.String(&quot;abbr&quot;)" class="string">&quot;abbr&quot;</span> <a href="XMLUtils.scala.html#27412" title="()String">content</a> <span class="delimiter">(</span><span class="delimiter">)</span>
+
+  <span class="keyword">lazy</span> <span class="keyword">val</span> <a title="String" id="27218">author1</a>: <span title="String">String</span> = <a href="#27240" title="=&gt; scala.xml.Elem">sourceXml</a> <a href="XMLUtils.scala.html#27309" title="implicit com.github.arosh.aoj4s.info.XMLUtils.NodeSeq2AOJXML : (x: scala.xml.NodeSeq)java.lang.Object{def content(): String}">\</a> <span title="java.lang.String(&quot;author1&quot;)" class="string">&quot;author1&quot;</span> <a href="XMLUtils.scala.html#27412" title="()String">content</a> <span class="delimiter">(</span><span class="delimiter">)</span>
+
+  <span class="keyword">lazy</span> <span class="keyword">val</span> <a title="String" id="27220">author2</a>: <span title="String">String</span> = <a href="#27240" title="=&gt; scala.xml.Elem">sourceXml</a> <a href="XMLUtils.scala.html#27309" title="implicit com.github.arosh.aoj4s.info.XMLUtils.NodeSeq2AOJXML : (x: scala.xml.NodeSeq)java.lang.Object{def content(): String}">\</a> <span title="java.lang.String(&quot;author2&quot;)" class="string">&quot;author2&quot;</span> <a href="XMLUtils.scala.html#27412" title="()String">content</a> <span class="delimiter">(</span><span class="delimiter">)</span>
+
+  <span class="keyword">lazy</span> <span class="keyword">val</span> <a title="String" id="27222">year</a>: <span title="String">String</span> = <a href="#27240" title="=&gt; scala.xml.Elem">sourceXml</a> <a href="XMLUtils.scala.html#27309" title="implicit com.github.arosh.aoj4s.info.XMLUtils.NodeSeq2AOJXML : (x: scala.xml.NodeSeq)java.lang.Object{def content(): String}">\</a> <span title="java.lang.String(&quot;year&quot;)" class="string">&quot;year&quot;</span> <a href="XMLUtils.scala.html#27412" title="()String">content</a> <span class="delimiter">(</span><span class="delimiter">)</span>
+
+  <span class="keyword">lazy</span> <span class="keyword">val</span> <a title="String" id="27224">month</a>: <span title="String">String</span> = <a href="#27240" title="=&gt; scala.xml.Elem">sourceXml</a> <a href="XMLUtils.scala.html#27309" title="implicit com.github.arosh.aoj4s.info.XMLUtils.NodeSeq2AOJXML : (x: scala.xml.NodeSeq)java.lang.Object{def content(): String}">\</a> <span title="java.lang.String(&quot;month&quot;)" class="string">&quot;month&quot;</span> <a href="XMLUtils.scala.html#27412" title="()String">content</a> <span class="delimiter">(</span><span class="delimiter">)</span>
+
+  <span class="keyword">lazy</span> <span class="keyword">val</span> <a title="String" id="27226">day</a>: <span title="String">String</span> = <a href="#27240" title="=&gt; scala.xml.Elem">sourceXml</a> <a href="XMLUtils.scala.html#27309" title="implicit com.github.arosh.aoj4s.info.XMLUtils.NodeSeq2AOJXML : (x: scala.xml.NodeSeq)java.lang.Object{def content(): String}">\</a> <span title="java.lang.String(&quot;day&quot;)" class="string">&quot;day&quot;</span> <a href="XMLUtils.scala.html#27412" title="()String">content</a> <span class="delimiter">(</span><span class="delimiter">)</span>
+
+  <span class="keyword">lazy</span> <span class="keyword">val</span> <a title="String" id="27228">note</a>: <span title="String">String</span> = <a href="#27240" title="=&gt; scala.xml.Elem">sourceXml</a> <a href="XMLUtils.scala.html#27309" title="implicit com.github.arosh.aoj4s.info.XMLUtils.NodeSeq2AOJXML : (x: scala.xml.NodeSeq)java.lang.Object{def content(): String}">\</a> <span title="java.lang.String(&quot;note&quot;)" class="string">&quot;note&quot;</span> <a href="XMLUtils.scala.html#27412" title="()String">content</a> <span class="delimiter">(</span><span class="delimiter">)</span>
+
+  <span class="keyword">lazy</span> <span class="keyword">val</span> <a title="String" id="27230">url</a>: <span title="String">String</span> = <a href="#27240" title="=&gt; scala.xml.Elem">sourceXml</a> <a href="XMLUtils.scala.html#27309" title="implicit com.github.arosh.aoj4s.info.XMLUtils.NodeSeq2AOJXML : (x: scala.xml.NodeSeq)java.lang.Object{def content(): String}">\</a> <span title="java.lang.String(&quot;url&quot;)" class="string">&quot;url&quot;</span> <a href="XMLUtils.scala.html#27412" title="()String">content</a> <span class="delimiter">(</span><span class="delimiter">)</span>
+
+  <span class="keyword">lazy</span> <span class="keyword">val</span> <a title="String" id="27232">judge</a>: <span title="String">String</span> = <a href="#27240" title="=&gt; scala.xml.Elem">sourceXml</a> <a href="XMLUtils.scala.html#27309" title="implicit com.github.arosh.aoj4s.info.XMLUtils.NodeSeq2AOJXML : (x: scala.xml.NodeSeq)java.lang.Object{def content(): String}">\</a> <span title="java.lang.String(&quot;judge&quot;)" class="string">&quot;judge&quot;</span> <a href="XMLUtils.scala.html#27412" title="()String">content</a> <span class="delimiter">(</span><span class="delimiter">)</span>
+<span class="delimiter">}</span>
+        </pre>
+    </body>
+</html>

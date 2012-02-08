@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+			<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" ></meta>
+        <title>com/github/arosh/aoj4s/AOJ.scala</title>
+        <script type="text/javascript" src="../../../../jquery-all.js"></script>
+        <script type="text/javascript" src="../../../../linked.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../../../style.css" title="Style"></link>
+    </head>
+    <body>
+        <pre>
+<span class="keyword">package</span> com.github.arosh.aoj4s
+
+<span class="keyword">import</span> java.net.URL
+<span class="keyword">import</span> java.net.URLEncoder
+<span class="keyword">import</span> xml.XML
+
+<span class="keyword">import</span> query._
+<span class="keyword">import</span> info._
+
+<span class="keyword">object</span> <a title="object com.github.arosh.aoj4s.AOJ" id="9458">AOJ</a> <span title="ScalaObject" class="keyword">extends</span> <a href="query/package.scala.html#9593" title="com.github.arosh.aoj4s.query.package.QueryWrapper">QueryWrapper</a> <span class="delimiter">{</span>
+  <span class="keyword">var</span> <a title="java.lang.String" id="10085">basedURL</a> = <span title="java.lang.String(&quot;http://judge.u-aizu.ac.jp/onlinejudge/webservice/&quot;)" class="string">&quot;http://judge.u-aizu.ac.jp/onlinejudge/webservice/&quot;</span>
+  <span class="keyword">var</span> <a title="Int" id="10088">SLEEP_TIME</a> = <span title="Int(10000)" class="int">10000</span>
+
+  <span class="keyword">private</span> <span class="keyword">def</span> <a title="[T &lt;: com.github.arosh.aoj4s.query.package.Query[_]](queries: T*)String" id="10090">joinQuery</a><span class="delimiter">[</span><a title="&gt;: Nothing &lt;: com.github.arosh.aoj4s.query.package.Query[_]" id="10092">T</a> &lt;: Query<span class="delimiter">[</span>_<span class="delimiter">]</span><span class="delimiter">]</span><span class="delimiter">(</span><a title="T*" id="12410">queries</a>: <span title="T*">T</span>*<span class="delimiter">)</span>: <span title="String">String</span> = <span class="delimiter">{</span>
+    <a href="#12410" title="T*">queries</a>.<span title="(p: T =&gt; Boolean)scala.collection.generic.FilterMonadic[T,Seq[T]]">withFilter</span><span class="delimiter">(</span><span title="Null(null)" class="keyword">null</span> <a href="#15044" title="(x$1: AnyRef)Boolean">!=</a><span class="delimiter">)</span>.<span title="(f: T =&gt; String)(implicit bf: scala.collection.generic.CanBuildFrom[Seq[T],String,Seq[String]])Seq[String]">map</span><span title="scala.collection.generic.CanBuildFrom[scala.collection.Seq.Coll,String,Seq[String]]" class="delimiter">(</span><a title="T" id="15064">p</a> =&gt; <span title="implicit scala.Predef.augmentString : (x: String)scala.collection.immutable.StringOps" class="string">&quot;%s=%s&quot;</span>.<span title="(args: Any*)String">format</span><span class="delimiter">(</span><a href="#15064" title="T">p</a>.<a href="query/package.scala.html#15008" title="=&gt; String">field</a>, <a href="#15064" title="T">p</a>.<a href="query/package.scala.html#15011" title="=&gt; Any">value</a><span class="delimiter">)</span><span class="delimiter">)</span>.<span title="(start: String, sep: String, end: String)String">mkString</span><span class="delimiter">(</span><span title="java.lang.String(&quot;?&quot;)" class="string">&quot;?&quot;</span>, <span title="java.lang.String(&quot;&amp;&quot;)" class="string">&quot;&amp;&quot;</span>, <span title="java.lang.String(&quot;&quot;)" class="string">&quot;&quot;</span><span class="delimiter">)</span>
+  <span class="delimiter">}</span>
+
+  <span class="keyword">private</span> <span class="keyword">def</span> <a title="(params: String)Option[scala.xml.Elem]" id="10093">loadXML</a><span class="delimiter">(</span><a title="String" id="22446">params</a>: <span title="String">String</span><span class="delimiter">)</span>: <span title="Option[scala.xml.Elem]">Option</span><span class="delimiter">[</span>xml.Elem<span class="delimiter">]</span> = <span class="delimiter">{</span>
+    <span class="keyword">try</span> <span class="delimiter">{</span>
+      <span class="keyword">val</span> <a title="scala.xml.Elem" id="22558">ret</a> = <span title="object scala.xml.XML">XML</span>.<span title="(url: java.net.URL)scala.xml.Elem">load</span><span class="delimiter">(</span><span title="(x$1: java.lang.String)java.net.URL" class="keyword">new</span> <span title="java.net.URL">URL</span><span class="delimiter">(</span><a href="#10085" title="=&gt; java.lang.String">basedURL</a> <span title="(x$1: Any)java.lang.String">+</span> <a href="#22446" title="String">params</a><span class="delimiter">)</span><span class="delimiter">)</span>
+      <span title="object java.lang.Thread">Thread</span>.<span title="(x$1: Long)Unit">sleep</span><span class="delimiter">(</span><a href="#10088" title="=&gt; Long">SLEEP_TIME</a><span class="delimiter">)</span>
+
+      <span title="(x: scala.xml.Elem)Some[scala.xml.Elem]">Some</span><span class="delimiter">(</span><a href="#22558" title="scala.xml.Elem">ret</a><span class="delimiter">)</span>
+    <span class="delimiter">}</span> <span class="keyword">catch</span> <span class="delimiter">{</span>
+      <span class="keyword">case</span> <a title="None.type" id="23456">e</a>: <span title="Exception">Exception</span> =&gt; <span title="object None">None</span>
+    <span class="delimiter">}</span>
+  <span class="delimiter">}</span>
+
+  <span class="comment">/**
+   * Provides detailed information of the specific user.
+   *
+   * @param id User ID.
+   */</span>
+  <span class="keyword">def</span> <a title="(id: String)Option[com.github.arosh.aoj4s.info.User]" id="10094">user</a><span class="delimiter">(</span><a title="String" id="23466">id</a>: <span title="String">String</span><span class="delimiter">)</span>: <span title="Option[com.github.arosh.aoj4s.info.User]">Option</span><span class="delimiter">[</span>User<span class="delimiter">]</span> = <span class="delimiter">{</span>
+    <span class="comment">// check</span>
+    <span title="(requirement: Boolean, message: =&gt; Any)Unit">require</span><span class="delimiter">(</span><a href="#23466" title="String">id</a>.<span title="()Int">length</span> <span title="(x: Int)Boolean">&gt;=</span> <span title="Int(1)" class="int">1</span>, <span title="java.lang.String(&quot;User ID is invalid.&quot;)" class="string">&quot;User ID is invalid.&quot;</span><span class="delimiter">)</span>
+
+    <span class="comment">// get</span>
+    <span class="keyword">val</span> <a title="Option[scala.xml.Elem]" id="23468">userXml</a> = <a href="#10093" title="(params: String)Option[scala.xml.Elem]">loadXML</a><span class="delimiter">(</span><span title="java.lang.String(&quot;user?id=&quot;)" class="string">&quot;user?id=&quot;</span> <span title="(x$1: Any)java.lang.String">+</span> <a href="#23466" title="String">id</a><span class="delimiter">)</span>
+
+    <a href="#23468" title="Option[scala.xml.Elem]">userXml</a>.<span title="(f: scala.xml.Elem =&gt; com.github.arosh.aoj4s.info.User)Option[com.github.arosh.aoj4s.info.User]">map</span> <span class="delimiter">{</span>
+      <a title="scala.xml.Elem" id="23517">x</a> =&gt; <a href="info/User.scala.html#23520" title="(userXml: scala.xml.Elem)com.github.arosh.aoj4s.info.User">User</a><span class="delimiter">(</span><a href="#23517" title="scala.xml.Elem">x</a><span class="delimiter">)</span>
+    <span class="delimiter">}</span>
+  <span class="delimiter">}</span>
+
+  <span class="comment">/**
+   * Provides detailed information of the specific problem.
+   *
+   * @param id Problem ID.
+   */</span>
+  <span class="keyword">def</span> <a title="(id: String)Option[com.github.arosh.aoj4s.info.Problem]" id="10095">problem</a><span class="delimiter">(</span><a title="String" id="23528">id</a>: <span title="String">String</span><span class="delimiter">)</span>: <span title="Option[com.github.arosh.aoj4s.info.Problem]">Option</span><span class="delimiter">[</span>Problem<span class="delimiter">]</span> = <span class="delimiter">{</span>
+    <span class="comment">// check</span>
+    <span title="(requirement: Boolean, message: =&gt; Any)Unit">require</span><span class="delimiter">(</span><span title="Int(4)" class="int">4</span> <span title="(x: Int)Boolean">&lt;=</span> <a href="#23528" title="String">id</a>.<span title="()Int">length</span><span class="delimiter">(</span><span class="delimiter">)</span> <span title="(x: Boolean)Boolean">&amp;&amp;</span> <a href="#23528" title="String">id</a>.<span title="()Int">length</span><span class="delimiter">(</span><span class="delimiter">)</span> <span title="(x: Int)Boolean">&lt;=</span> <span title="Int(5)" class="int">5</span> <span title="(x: Boolean)Boolean">&amp;&amp;</span> <a href="#23528" title="implicit scala.Predef.augmentString : (x: String)scala.collection.immutable.StringOps">id</a>.<span title="(p: Char =&gt; Boolean)Boolean">forall</span><span class="delimiter">(</span><a href="#24929" title="implicit scala.LowPriorityImplicits.charWrapper : (c: Char)scala.runtime.RichChar">_</a>.<span title="=&gt; Boolean">isDigit</span><span class="delimiter">)</span>, <span title="java.lang.String(&quot;Problem ID is invalid.&quot;)" class="string">&quot;Problem ID is invalid.&quot;</span><span class="delimiter">)</span>
+
+    <span class="comment">// get</span>
+    <span class="keyword">val</span> <a title="Option[scala.xml.Elem]" id="23530">problemXml</a> = <a href="#10093" title="(params: String)Option[scala.xml.Elem]">loadXML</a><span class="delimiter">(</span><span title="java.lang.String(&quot;problem?id=&quot;)" class="string">&quot;problem?id=&quot;</span> <span title="(x$1: Any)java.lang.String">+</span> <a href="#23528" title="String">id</a><span class="delimiter">)</span>
+
+    <a href="#23530" title="Option[scala.xml.Elem]">problemXml</a> <span title="(p: scala.xml.Elem =&gt; Boolean)Option[scala.xml.Elem]">filter</span> <span class="delimiter">{</span>
+      <a title="scala.xml.Elem" id="24936">x</a> =&gt;
+        <a href="#24936" title="scala.xml.Elem">x</a> <span title="(x$1: AnyRef)Boolean">!=</span> &lt;<a title="scala.xml.Elem" id="25151">problem</a>&gt;
+             &lt;/problem&gt;
+    <span class="delimiter">}</span> <span title="(f: scala.xml.Elem =&gt; com.github.arosh.aoj4s.info.Problem)Option[com.github.arosh.aoj4s.info.Problem]">map</span> <span class="delimiter">{</span>
+      <a title="scala.xml.Elem" id="25732">x</a> =&gt; <a href="info/Problem.scala.html#25735" title="(problemXml: scala.xml.Elem)com.github.arosh.aoj4s.info.Problem">Problem</a><span class="delimiter">(</span><a href="#25732" title="scala.xml.Elem">x</a><span class="delimiter">)</span>
+    <span class="delimiter">}</span>
+  <span class="delimiter">}</span>
+
+  <span class="comment">/**
+   * Provides a list of problems in the specific volume.
+   *
+   * @param volume Volume No.
+   */</span>
+  <span class="keyword">def</span> <a title="(volume: Int)Option[com.github.arosh.aoj4s.info.ProblemList]" id="10096">problem_list</a><span class="delimiter">(</span><a title="Int" id="25743">volume</a>: <span title="Int">Int</span><span class="delimiter">)</span>: <span title="Option[com.github.arosh.aoj4s.info.ProblemList]">Option</span><span class="delimiter">[</span>ProblemList<span class="delimiter">]</span> = <span class="delimiter">{</span>
+    <span class="comment">// check</span>
+    <span title="(requirement: Boolean, message: =&gt; Any)Unit">require</span><span class="delimiter">(</span><span title="Int(0)" class="int">0</span> <span title="(x: Int)Boolean">&lt;=</span> <a href="#25743" title="Int">volume</a> <span title="(x: Boolean)Boolean">&amp;&amp;</span> <a href="#25743" title="Int">volume</a> <span title="(x: Int)Boolean">&lt;=</span> <span title="Int(100)" class="int">100</span>, <span title="java.lang.String(&quot;Volume No is invalid.&quot;)" class="string">&quot;Volume No is invalid.&quot;</span><span class="delimiter">)</span>
+
+    <span class="comment">// get</span>
+    <span class="keyword">val</span> <a title="Option[scala.xml.Elem]" id="25745">problem_listXml</a> = <a href="#10093" title="(params: String)Option[scala.xml.Elem]">loadXML</a><span class="delimiter">(</span><span title="java.lang.String(&quot;problem_list?volume=&quot;)" class="string">&quot;problem_list?volume=&quot;</span> <span title="(x$1: Any)java.lang.String">+</span> <a href="#25743" title="Int">volume</a><span class="delimiter">)</span>
+
+    <a href="#25745" title="Option[scala.xml.Elem]">problem_listXml</a>.<span title="(f: scala.xml.Elem =&gt; com.github.arosh.aoj4s.info.ProblemList)Option[com.github.arosh.aoj4s.info.ProblemList]">map</span> <span class="delimiter">{</span>
+      <a title="scala.xml.Elem" id="25770">x</a> =&gt; <a href="info/ProblemList.scala.html#25773" title="(problem_listXml: scala.xml.Elem)com.github.arosh.aoj4s.info.ProblemList">ProblemList</a><span class="delimiter">(</span><a href="#25770" title="scala.xml.Elem">x</a><span class="delimiter">)</span>
+    <span class="delimiter">}</span>
+  <span class="delimiter">}</span>
+
+  <span class="comment">/**
+   * Provides a list of users meeting specified criteria.
+   *
+   * @param criteria Criteria for sorting. 0 = order by solved, 1 = order by rating.
+   * @param affiliation A substring in the affiliation.
+   * @param solved_min The service returns a list of users who solved at least solved_min problems.
+   * @param solved_max The service returns a list of users who solved at most solved_max problems.
+   */</span>
+  <span class="keyword">def</span> <a title="(criteria: com.github.arosh.aoj4s.query.package.Criteria, affiliation: com.github.arosh.aoj4s.query.package.Affiliation, solved_min: com.github.arosh.aoj4s.query.package.SolvedMin, solved_max: com.github.arosh.aoj4s.query.package.SolvedMax)Option[com.github.arosh.aoj4s.info.UserList]" id="10097">user_list</a><span class="delimiter">(</span><a title="com.github.arosh.aoj4s.query.package.Criteria" id="25786">criteria</a>: <a href="query/package.scala.html#9554" title="com.github.arosh.aoj4s.query.package.Criteria">Criteria</a> = <span title="Null(null)" class="keyword">null</span>, <a title="com.github.arosh.aoj4s.query.package.Affiliation" id="25787">affiliation</a>: <a href="query/package.scala.html#9557" title="com.github.arosh.aoj4s.query.package.Affiliation">Affiliation</a> = <span title="Null(null)" class="keyword">null</span>, <a title="com.github.arosh.aoj4s.query.package.SolvedMin" id="25788">solved_min</a>: <a href="query/package.scala.html#9560" title="com.github.arosh.aoj4s.query.package.SolvedMin">SolvedMin</a> = <span title="Null(null)" class="keyword">null</span>, <a title="com.github.arosh.aoj4s.query.package.SolvedMax" id="25789">solved_max</a>: <a href="query/package.scala.html#9563" title="com.github.arosh.aoj4s.query.package.SolvedMax">SolvedMax</a> = <span title="Null(null)" class="keyword">null</span><span class="delimiter">)</span>: <span title="Option[com.github.arosh.aoj4s.info.UserList]">Option</span><span class="delimiter">[</span>UserList<span class="delimiter">]</span> = <span class="delimiter">{</span>
+    <span class="comment">// check</span>
+    <span title="Unit" class="keyword">if</span> <span class="delimiter">(</span><a href="#25786" title="com.github.arosh.aoj4s.query.package.Criteria">criteria</a> <span title="(x$1: AnyRef)Boolean">!=</span> <span title="Null(null)" class="keyword">null</span><span class="delimiter">)</span> <span class="delimiter">{</span>
+      <span title="(requirement: Boolean)Unit">require</span><span class="delimiter">(</span><a href="#25786" title="com.github.arosh.aoj4s.query.package.Criteria">criteria</a>.<a href="query/package.scala.html#15608" title="=&gt; Int">value</a> <span title="(x: Int)Boolean">==</span> <span title="Int(0)" class="int">0</span> <span title="(x: Boolean)Boolean">||</span> <a href="#25786" title="com.github.arosh.aoj4s.query.package.Criteria">criteria</a>.<a href="query/package.scala.html#15608" title="=&gt; Int">value</a> <span title="(x: Int)Boolean">==</span> <span title="Int(1)" class="int">1</span><span class="delimiter">)</span>
+    <span class="delimiter">}</span>
+
+    <span class="comment">// get</span>
+    <span class="keyword">val</span> <a title="com.github.arosh.aoj4s.query.package.Affiliation" id="25790">encoded_affiliation</a> = <span title="com.github.arosh.aoj4s.query.package.Affiliation" class="keyword">if</span> <span class="delimiter">(</span><a href="#25787" title="com.github.arosh.aoj4s.query.package.Affiliation">affiliation</a> <span title="(x$1: AnyRef)Boolean">==</span> <span title="Null(null)" class="keyword">null</span><span class="delimiter">)</span> <span title="Null(null)" class="keyword">null</span> <span class="keyword">else</span> <a href="query/package.scala.html#15590" title="(value: String)com.github.arosh.aoj4s.query.package.Affiliation">Affiliation</a><span class="delimiter">(</span><span title="object java.net.URLEncoder">URLEncoder</span>.<span title="(x$1: java.lang.String, x$2: java.lang.String)java.lang.String">encode</span><span class="delimiter">(</span><a href="#25787" title="com.github.arosh.aoj4s.query.package.Affiliation">affiliation</a>.<a href="query/package.scala.html#15592" title="=&gt; String">value</a>, <span title="java.lang.String(&quot;UTF-8&quot;)" class="string">&quot;UTF-8&quot;</span><span class="delimiter">)</span><span class="delimiter">)</span>
+    <span class="keyword">val</span> <a title="java.lang.String" id="25791">query</a> = <a href="#10090" title="(queries: Product with Serializable with com.github.arosh.aoj4s.query.package.Query[_ &gt;: Int with String]*)String">joinQuery</a><span class="delimiter">(</span><a href="#25786" title="com.github.arosh.aoj4s.query.package.Criteria">criteria</a>, <a href="#25790" title="com.github.arosh.aoj4s.query.package.Affiliation">encoded_affiliation</a>, <a href="#25788" title="com.github.arosh.aoj4s.query.package.SolvedMin">solved_min</a>, <a href="#25789" title="com.github.arosh.aoj4s.query.package.SolvedMax">solved_max</a><span class="delimiter">)</span>
+
+    <span class="keyword">val</span> <a title="Option[scala.xml.Elem]" id="25792">user_listXml</a> = <a href="#10093" title="(params: String)Option[scala.xml.Elem]">loadXML</a><span class="delimiter">(</span><span title="java.lang.String(&quot;user_list&quot;)" class="string">&quot;user_list&quot;</span> <span title="(x$1: Any)java.lang.String">+</span> <a href="#25791" title="java.lang.String">query</a><span class="delimiter">)</span>
+
+    <a href="#25792" title="Option[scala.xml.Elem]">user_listXml</a>.<span title="(f: scala.xml.Elem =&gt; com.github.arosh.aoj4s.info.UserList)Option[com.github.arosh.aoj4s.info.UserList]">map</span> <span class="delimiter">{</span>
+      <a title="scala.xml.Elem" id="25885">x</a> =&gt; <a href="info/UserList.scala.html#25888" title="(user_listXml: scala.xml.Elem)com.github.arosh.aoj4s.info.UserList">UserList</a><span class="delimiter">(</span><a href="#25885" title="scala.xml.Elem">x</a><span class="delimiter">)</span>
+    <span class="delimiter">}</span>
+  <span class="delimiter">}</span>
+
+  <span class="comment">/**
+   * Provides a list of accepted submission records meeting specified criteria.
+   *
+   * @param user_id User ID.
+   * @param problem_id Problem ID.
+   * @param language Programming language.
+   * @param date_begin The service returns records after date_begin.
+   * @param date_end The service returns records before date_end.
+   */</span>
+  <span class="keyword">def</span> <a title="(user_id: com.github.arosh.aoj4s.query.package.UserID, problem_id: com.github.arosh.aoj4s.query.package.ProblemID, language: com.github.arosh.aoj4s.query.package.Language, date_begin: com.github.arosh.aoj4s.query.package.DateBegin, date_end: com.github.arosh.aoj4s.query.package.DateEnd)Option[com.github.arosh.aoj4s.info.SolvedRecord]" id="10098">solved_record</a><span class="delimiter">(</span><a title="com.github.arosh.aoj4s.query.package.UserID" id="25902">user_id</a>: <a href="query/package.scala.html#9566" title="com.github.arosh.aoj4s.query.package.UserID">UserID</a> = <span title="Null(null)" class="keyword">null</span>, <a title="com.github.arosh.aoj4s.query.package.ProblemID" id="25903">problem_id</a>: <a href="query/package.scala.html#9569" title="com.github.arosh.aoj4s.query.package.ProblemID">ProblemID</a> = <span title="Null(null)" class="keyword">null</span>, <a title="com.github.arosh.aoj4s.query.package.Language" id="25904">language</a>: <a href="query/package.scala.html#9572" title="com.github.arosh.aoj4s.query.package.Language">Language</a> = <span title="Null(null)" class="keyword">null</span>, <a title="com.github.arosh.aoj4s.query.package.DateBegin" id="25905">date_begin</a>: <a href="query/package.scala.html#9575" title="com.github.arosh.aoj4s.query.package.DateBegin">DateBegin</a> = <span title="Null(null)" class="keyword">null</span>, <a title="com.github.arosh.aoj4s.query.package.DateEnd" id="25906">date_end</a>: <a href="query/package.scala.html#9578" title="com.github.arosh.aoj4s.query.package.DateEnd">DateEnd</a> = <span title="Null(null)" class="keyword">null</span><span class="delimiter">)</span>: <span title="Option[com.github.arosh.aoj4s.info.SolvedRecord]">Option</span><span class="delimiter">[</span>SolvedRecord<span class="delimiter">]</span> = <span class="delimiter">{</span>
+    <span class="comment">// check</span>
+    <span title="(requirement: Boolean, message: =&gt; Any)Unit">require</span><span class="delimiter">(</span><a href="#25902" title="com.github.arosh.aoj4s.query.package.UserID">user_id</a> <span title="(x$1: AnyRef)Boolean">!=</span> <span title="Null(null)" class="keyword">null</span> <span title="(x: Boolean)Boolean">||</span> <a href="#25903" title="com.github.arosh.aoj4s.query.package.ProblemID">problem_id</a> <span title="(x$1: AnyRef)Boolean">!=</span> <span title="Null(null)" class="keyword">null</span>, <span title="java.lang.String(&quot;User ID or Problem ID should be specified.&quot;)" class="string">&quot;User ID or Problem ID should be specified.&quot;</span><span class="delimiter">)</span>
+    <span title="Unit" class="keyword">if</span> <span class="delimiter">(</span><a href="#25903" title="com.github.arosh.aoj4s.query.package.ProblemID">problem_id</a> <span title="(x$1: AnyRef)Boolean">!=</span> <span title="Null(null)" class="keyword">null</span><span class="delimiter">)</span> <span class="delimiter">{</span>
+      <span title="(requirement: Boolean, message: =&gt; Any)Unit">require</span><span class="delimiter">(</span><a href="#25903" title="com.github.arosh.aoj4s.query.package.ProblemID">problem_id</a>.<a href="query/package.scala.html#15528" title="implicit scala.Predef.augmentString : (x: String)scala.collection.immutable.StringOps">value</a>.<span title="(p: Char =&gt; Boolean)Boolean">forall</span><span class="delimiter">(</span><a href="#26185" title="implicit scala.LowPriorityImplicits.charWrapper : (c: Char)scala.runtime.RichChar">_</a>.<span title="=&gt; Boolean">isDigit</span><span class="delimiter">)</span>, <span title="java.lang.String(&quot;Problem ID is invalid.&quot;)" class="string">&quot;Problem ID is invalid.&quot;</span><span class="delimiter">)</span>
+    <span class="delimiter">}</span>
+
+    <span class="comment">// get</span>
+    <span class="keyword">val</span> <a title="java.lang.String" id="25907">query</a> = <a href="#10090" title="(queries: Product with Serializable with com.github.arosh.aoj4s.query.package.Query[_ &gt;: Long with String]*)String">joinQuery</a><span class="delimiter">(</span><a href="#25902" title="com.github.arosh.aoj4s.query.package.UserID">user_id</a>, <a href="#25903" title="com.github.arosh.aoj4s.query.package.ProblemID">problem_id</a>, <a href="#25904" title="com.github.arosh.aoj4s.query.package.Language">language</a>, <a href="#25905" title="com.github.arosh.aoj4s.query.package.DateBegin">date_begin</a>, <a href="#25906" title="com.github.arosh.aoj4s.query.package.DateEnd">date_end</a><span class="delimiter">)</span>
+
+    <span class="keyword">val</span> <a title="Option[scala.xml.Elem]" id="25908">solved_recordXml</a> = <a href="#10093" title="(params: String)Option[scala.xml.Elem]">loadXML</a><span class="delimiter">(</span><span title="java.lang.String(&quot;solved_record&quot;)" class="string">&quot;solved_record&quot;</span> <span title="(x$1: Any)java.lang.String">+</span> <a href="#25907" title="java.lang.String">query</a><span class="delimiter">)</span>
+
+    <a href="#25908" title="Option[scala.xml.Elem]">solved_recordXml</a>.<span title="(f: scala.xml.Elem =&gt; com.github.arosh.aoj4s.info.SolvedRecord)Option[com.github.arosh.aoj4s.info.SolvedRecord]">map</span> <span class="delimiter">{</span>
+      <a title="scala.xml.Elem" id="26252">x</a> =&gt; <a href="info/SolvedRecord.scala.html#26255" title="(solved_recordXml: scala.xml.Elem)com.github.arosh.aoj4s.info.SolvedRecord">SolvedRecord</a><span class="delimiter">(</span><a href="#26252" title="scala.xml.Elem">x</a><span class="delimiter">)</span>
+    <span class="delimiter">}</span>
+  <span class="delimiter">}</span>
+
+  <span class="comment">/**
+   * Provides a list of submission records meeting specified criteria.
+   *
+   * @param user_id User ID.
+   * @param problem_id Problem ID.
+   * @param start Start position.
+   * @param limit The number of records. (1 &lt;= limit &lt;= 20)
+   */</span>
+  <span class="keyword">def</span> <a title="(user_id: com.github.arosh.aoj4s.query.package.UserID, problem_id: com.github.arosh.aoj4s.query.package.ProblemID, start: com.github.arosh.aoj4s.query.package.Start, limit: com.github.arosh.aoj4s.query.package.Limit)Option[com.github.arosh.aoj4s.info.StatusLog]" id="10099">status_log</a><span class="delimiter">(</span><a title="com.github.arosh.aoj4s.query.package.UserID" id="26268">user_id</a>: <a href="query/package.scala.html#9566" title="com.github.arosh.aoj4s.query.package.UserID">UserID</a> = <span title="Null(null)" class="keyword">null</span>, <a title="com.github.arosh.aoj4s.query.package.ProblemID" id="26269">problem_id</a>: <a href="query/package.scala.html#9569" title="com.github.arosh.aoj4s.query.package.ProblemID">ProblemID</a> = <span title="Null(null)" class="keyword">null</span>, <a title="com.github.arosh.aoj4s.query.package.Start" id="26270">start</a>: <a href="query/package.scala.html#9581" title="com.github.arosh.aoj4s.query.package.Start">Start</a> = <span title="Null(null)" class="keyword">null</span>, <a title="com.github.arosh.aoj4s.query.package.Limit" id="26271">limit</a>: <a href="query/package.scala.html#9584" title="com.github.arosh.aoj4s.query.package.Limit">Limit</a> = <span title="Null(null)" class="keyword">null</span><span class="delimiter">)</span>: <span title="Option[com.github.arosh.aoj4s.info.StatusLog]">Option</span><span class="delimiter">[</span>StatusLog<span class="delimiter">]</span> = <span class="delimiter">{</span>
+    <span class="comment">// check</span>
+    <span title="Unit" class="keyword">if</span> <span class="delimiter">(</span><a href="#26269" title="com.github.arosh.aoj4s.query.package.ProblemID">problem_id</a> <span title="(x$1: AnyRef)Boolean">!=</span> <span title="Null(null)" class="keyword">null</span><span class="delimiter">)</span> <span class="delimiter">{</span>
+      <span title="(requirement: Boolean, message: =&gt; Any)Unit">require</span><span class="delimiter">(</span><a href="#26269" title="com.github.arosh.aoj4s.query.package.ProblemID">problem_id</a>.<a href="query/package.scala.html#15528" title="implicit scala.Predef.augmentString : (x: String)scala.collection.immutable.StringOps">value</a>.<span title="(p: Char =&gt; Boolean)Boolean">forall</span><span class="delimiter">(</span><a href="#26540" title="implicit scala.LowPriorityImplicits.charWrapper : (c: Char)scala.runtime.RichChar">_</a>.<span title="=&gt; Boolean">isDigit</span><span class="delimiter">)</span>, <span title="java.lang.String(&quot;Problem ID is invalid.&quot;)" class="string">&quot;Problem ID is invalid.&quot;</span><span class="delimiter">)</span>
+    <span class="delimiter">}</span>
+
+    <span class="comment">// get</span>
+    <span class="keyword">val</span> <a title="java.lang.String" id="26272">query</a> = <a href="#10090" title="(queries: Product with Serializable with com.github.arosh.aoj4s.query.package.Query[_ &gt;: Int with String]*)String">joinQuery</a><span class="delimiter">(</span><a href="#26268" title="com.github.arosh.aoj4s.query.package.UserID">user_id</a>, <a href="#26269" title="com.github.arosh.aoj4s.query.package.ProblemID">problem_id</a>, <a href="#26270" title="com.github.arosh.aoj4s.query.package.Start">start</a>, <a href="#26271" title="com.github.arosh.aoj4s.query.package.Limit">limit</a><span class="delimiter">)</span>
+
+    <span class="keyword">val</span> <a title="Option[scala.xml.Elem]" id="26273">status_logXml</a> = <a href="#10093" title="(params: String)Option[scala.xml.Elem]">loadXML</a><span class="delimiter">(</span><span title="java.lang.String(&quot;status_log&quot;)" class="string">&quot;status_log&quot;</span> <span title="(x$1: Any)java.lang.String">+</span> <a href="#26272" title="java.lang.String">query</a><span class="delimiter">)</span>
+
+    <a href="#26273" title="Option[scala.xml.Elem]">status_logXml</a>.<span title="(f: scala.xml.Elem =&gt; com.github.arosh.aoj4s.info.StatusLog)Option[com.github.arosh.aoj4s.info.StatusLog]">map</span> <span class="delimiter">{</span>
+      <a title="scala.xml.Elem" id="26604">x</a> =&gt; <a href="info/StatusLog.scala.html#26607" title="(status_logXml: scala.xml.Elem)com.github.arosh.aoj4s.info.StatusLog">StatusLog</a><span class="delimiter">(</span><a href="#26604" title="scala.xml.Elem">x</a><span class="delimiter">)</span>
+    <span class="delimiter">}</span>
+  <span class="delimiter">}</span>
+
+  <span class="comment">/**
+   * Provides categories and the corresponding scores of all problems or the specific problem.
+   * Please note that, the scores have been assigned subjectively
+   * and there are problems which we have not assigned the score yet.
+   *
+   * @param id Problem ID.
+   * @param category Category Name.
+   */</span>
+  <span class="keyword">def</span> <a title="(id: com.github.arosh.aoj4s.query.package.ID, category: com.github.arosh.aoj4s.query.package.Category)Option[com.github.arosh.aoj4s.info.ProblemCategory]" id="10100">problem_category</a><span class="delimiter">(</span><a title="com.github.arosh.aoj4s.query.package.ID" id="26618">id</a>: <a href="query/package.scala.html#9587" title="com.github.arosh.aoj4s.query.package.ID">ID</a> = <span title="Null(null)" class="keyword">null</span>, <a title="com.github.arosh.aoj4s.query.package.Category" id="26619">category</a>: <a href="query/package.scala.html#9590" title="com.github.arosh.aoj4s.query.package.Category">Category</a> = <span title="Null(null)" class="keyword">null</span><span class="delimiter">)</span>: <span title="Option[com.github.arosh.aoj4s.info.ProblemCategory]">Option</span><span class="delimiter">[</span>ProblemCategory<span class="delimiter">]</span> = <span class="delimiter">{</span>
+    <span class="comment">// check</span>
+    <span title="Unit" class="keyword">if</span> <span class="delimiter">(</span><a href="#26618" title="com.github.arosh.aoj4s.query.package.ID">id</a> <span title="(x$1: AnyRef)Boolean">!=</span> <span title="Null(null)" class="keyword">null</span><span class="delimiter">)</span> <span class="delimiter">{</span>
+      <span title="(requirement: Boolean, message: =&gt; Any)Unit">require</span><span class="delimiter">(</span><a href="#26618" title="com.github.arosh.aoj4s.query.package.ID">id</a>.<a href="query/package.scala.html#15125" title="implicit scala.Predef.augmentString : (x: String)scala.collection.immutable.StringOps">value</a>.<span title="(p: Char =&gt; Boolean)Boolean">forall</span><span class="delimiter">(</span><a href="#26888" title="implicit scala.LowPriorityImplicits.charWrapper : (c: Char)scala.runtime.RichChar">_</a>.<span title="=&gt; Boolean">isDigit</span><span class="delimiter">)</span>, <span title="java.lang.String(&quot;Problem ID is invalid.&quot;)" class="string">&quot;Problem ID is invalid.&quot;</span><span class="delimiter">)</span>
+    <span class="delimiter">}</span>
+
+    <span class="comment">// get</span>
+    <span class="keyword">val</span> <a title="java.lang.String" id="26620">query</a> = <a href="#10090" title="(queries: Product with Serializable with com.github.arosh.aoj4s.query.package.Query[String]*)String">joinQuery</a><span class="delimiter">(</span><a href="#26618" title="com.github.arosh.aoj4s.query.package.ID">id</a>, <a href="#26619" title="com.github.arosh.aoj4s.query.package.Category">category</a><span class="delimiter">)</span>
+
+    <span class="keyword">val</span> <a title="Option[scala.xml.Elem]" id="26621">problem_categoryXml</a> = <a href="#10093" title="(params: String)Option[scala.xml.Elem]">loadXML</a><span class="delimiter">(</span><span title="java.lang.String(&quot;problem_category&quot;)" class="string">&quot;problem_category&quot;</span> <span title="(x$1: Any)java.lang.String">+</span> <a href="#26620" title="java.lang.String">query</a><span class="delimiter">)</span>
+
+    <a href="#26621" title="Option[scala.xml.Elem]">problem_categoryXml</a>.<span title="(f: scala.xml.Elem =&gt; com.github.arosh.aoj4s.info.ProblemCategory)Option[com.github.arosh.aoj4s.info.ProblemCategory]">map</span> <span class="delimiter">{</span>
+      <a title="scala.xml.Elem" id="26921">x</a> =&gt; <a href="info/ProblemCategory.scala.html#26924" title="(problem_categoryXml: scala.xml.Elem)com.github.arosh.aoj4s.info.ProblemCategory">ProblemCategory</a><span class="delimiter">(</span><a href="#26921" title="scala.xml.Elem">x</a><span class="delimiter">)</span>
+    <span class="delimiter">}</span>
+  <span class="delimiter">}</span>
+
+  <span class="comment">/**
+   * Provides detailed information of the source of a specific problem.
+   *
+   * @param id Problem ID.
+   */</span>
+  <span class="keyword">def</span> <a title="(id: String)Option[com.github.arosh.aoj4s.info.Source]" id="10101">source</a><span class="delimiter">(</span><a title="String" id="26932">id</a>: <span title="String">String</span><span class="delimiter">)</span>: <span title="Option[com.github.arosh.aoj4s.info.Source]">Option</span><span class="delimiter">[</span>Source<span class="delimiter">]</span> = <span class="delimiter">{</span>
+    <span class="comment">// check</span>
+    <span title="(requirement: Boolean, message: =&gt; Any)Unit">require</span><span class="delimiter">(</span><a href="#26932" title="implicit scala.Predef.augmentString : (x: String)scala.collection.immutable.StringOps">id</a>.<span title="(p: Char =&gt; Boolean)Boolean">forall</span><span class="delimiter">(</span><a href="#27197" title="implicit scala.LowPriorityImplicits.charWrapper : (c: Char)scala.runtime.RichChar">_</a>.<span title="=&gt; Boolean">isDigit</span><span class="delimiter">)</span>, <span title="java.lang.String(&quot;Problem ID is invalid.&quot;)" class="string">&quot;Problem ID is invalid.&quot;</span><span class="delimiter">)</span>
+
+    <span class="comment">// get</span>
+    <span class="keyword">val</span> <a title="Option[scala.xml.Elem]" id="26934">sourceXml</a> = <a href="#10093" title="(params: String)Option[scala.xml.Elem]">loadXML</a><span class="delimiter">(</span><span title="java.lang.String(&quot;source?id=&quot;)" class="string">&quot;source?id=&quot;</span> <span title="(x$1: Any)java.lang.String">+</span> <a href="#26932" title="String">id</a><span class="delimiter">)</span>
+
+    <a href="#26934" title="Option[scala.xml.Elem]">sourceXml</a>.<span title="(f: scala.xml.Elem =&gt; com.github.arosh.aoj4s.info.Source)Option[com.github.arosh.aoj4s.info.Source]">map</span> <span class="delimiter">{</span>
+      <a title="scala.xml.Elem" id="27235">x</a> =&gt; <a href="info/Source.scala.html#27238" title="(sourceXml: scala.xml.Elem)com.github.arosh.aoj4s.info.Source">Source</a><span class="delimiter">(</span><a href="#27235" title="scala.xml.Elem">x</a><span class="delimiter">)</span>
+    <span class="delimiter">}</span>
+  <span class="delimiter">}</span>
+<span class="delimiter">}</span>
+
+        </pre>
+    </body>
+</html>

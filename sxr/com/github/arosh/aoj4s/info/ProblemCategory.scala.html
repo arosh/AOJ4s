@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+			<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" ></meta>
+        <title>com/github/arosh/aoj4s/info/ProblemCategory.scala</title>
+        <script type="text/javascript" src="../../../../../jquery-all.js"></script>
+        <script type="text/javascript" src="../../../../../linked.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../../../../style.css" title="Style"></link>
+    </head>
+    <body>
+        <pre>
+<span class="keyword">package</span> com.github.arosh.aoj4s
+<span class="keyword">package</span> info
+
+<span class="keyword">import</span> scala.xml.Elem
+<span class="keyword">import</span> scala.xml.NodeSeq
+
+<span class="keyword">import</span> <a href="XMLUtils.scala.html#9542" title="object com.github.arosh.aoj4s.info.XMLUtils">XMLUtils</a>.NodeSeq2AOJXML
+
+case <span class="keyword">class</span> <a title="class ProblemCategory extends java.lang.Object with ScalaObject with Product with Serializable" id="28138">ProblemCategory</a><a href="#28138" title="ScalaObject" class="delimiter">(</a><a title="scala.xml.Elem" id="26926">problem_categoryXml</a>: <span title="scala.xml.Elem">Elem</span><span class="delimiter">)</span> <span class="delimiter">{</span>
+
+  case <span class="keyword">class</span> <a title="class ProblemStruct extends java.lang.Object with ScalaObject with Product with Serializable" id="27961">ProblemStruct</a><a href="#27961" title="ScalaObject" class="delimiter">(</a><a title="scala.xml.NodeSeq" id="27974">problemXml</a>: <span title="scala.xml.NodeSeq">NodeSeq</span><span class="delimiter">)</span> <span class="delimiter">{</span>
+    <span class="keyword">lazy</span> <span class="keyword">val</span> <a title="String" id="27967">id</a>: <span title="String">String</span> = <a href="#27974" title="=&gt; scala.xml.NodeSeq">problemXml</a> <a href="XMLUtils.scala.html#27309" title="implicit com.github.arosh.aoj4s.info.XMLUtils.NodeSeq2AOJXML : (x: scala.xml.NodeSeq)java.lang.Object{def content(): String}">\</a> <span title="java.lang.String(&quot;id&quot;)" class="string">&quot;id&quot;</span> <a href="XMLUtils.scala.html#27412" title="()String">content</a> <span class="delimiter">(</span><span class="delimiter">)</span>
+
+    <span class="keyword">lazy</span> <span class="keyword">val</span> <a title="String" id="27969">category</a>: <span title="String">String</span> = <a href="#27974" title="=&gt; scala.xml.NodeSeq">problemXml</a> <a href="XMLUtils.scala.html#27309" title="implicit com.github.arosh.aoj4s.info.XMLUtils.NodeSeq2AOJXML : (x: scala.xml.NodeSeq)java.lang.Object{def content(): String}">\</a> <span title="java.lang.String(&quot;category&quot;)" class="string">&quot;category&quot;</span> <a href="XMLUtils.scala.html#27412" title="()String">content</a> <span class="delimiter">(</span><span class="delimiter">)</span>
+
+    <span class="keyword">lazy</span> <span class="keyword">val</span> <a title="Float" id="27971">score</a>: <span title="Float">Float</span> = <span class="delimiter">(</span><a href="#27974" title="=&gt; scala.xml.NodeSeq">problemXml</a> <a href="XMLUtils.scala.html#27309" title="implicit com.github.arosh.aoj4s.info.XMLUtils.NodeSeq2AOJXML : (x: scala.xml.NodeSeq)java.lang.Object{def content(): String}">\</a> <span title="java.lang.String(&quot;score&quot;)" class="string">&quot;score&quot;</span> <a href="XMLUtils.scala.html#27412" title="implicit scala.Predef.augmentString : (x: String)scala.collection.immutable.StringOps">content</a> <span class="delimiter">(</span><span class="delimiter">)</span><span class="delimiter">)</span>.<span title="=&gt; Float">toFloat</span>
+  <span class="delimiter">}</span>
+
+  <span class="keyword">lazy</span> <span class="keyword">val</span> <a title="scala.collection.immutable.Seq[ProblemCategory.this.ProblemStruct]" id="26918">problem</a> = <a href="#26926" title="=&gt; scala.xml.Elem">problem_categoryXml</a> <span title="(that: String)scala.xml.NodeSeq">\</span> <span title="java.lang.String(&quot;problem&quot;)" class="string">&quot;problem&quot;</span> <span title="(f: scala.xml.Node =&gt; ProblemCategory.this.ProblemStruct)(implicit bf: scala.collection.generic.CanBuildFrom[scala.xml.NodeSeq,ProblemCategory.this.ProblemStruct,scala.collection.immutable.Seq[ProblemCategory.this.ProblemStruct]])scala.collection.immutable.Seq[ProblemCategory.this.ProblemStruct]">map</span> <span class="delimiter">(</span><a title="scala.xml.Node" id="27958">x</a> =&gt; <a href="#27961" title="(problemXml: scala.xml.NodeSeq)ProblemCategory.this.ProblemStruct">ProblemStruct</a><span class="delimiter">(</span><a href="#27958" title="scala.xml.Node">x</a><span class="delimiter">)</span><span class="delimiter">)</span>
+<span class="delimiter">}</span>
+
+        </pre>
+    </body>
+</html>
