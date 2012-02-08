@@ -1,4 +1,4 @@
-package jp.gr.java_conf.shora_kujira16.aoj4s
+package com.github.arosh.aoj4s
 
 object CATEGORIES {
   /** Straightforward */

@@ -1,4 +1,5 @@
-package jp.gr.java_conf.shora_kujira16.aoj4s.info
+package com.github.arosh.aoj4s
+package info
 
 import scala.xml.Elem
 import scala.xml.NodeSeq
