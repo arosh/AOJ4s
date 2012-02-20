@@ -2,7 +2,7 @@ name := "aoj4s"
 
 version := "0.1"
 
-organization := "jp.gr.java_conf.shora_kujira16"
+organization := "com.github.arosh"
 
 scalaVersion := "2.9.1"
 
