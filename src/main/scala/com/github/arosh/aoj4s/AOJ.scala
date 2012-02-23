@@ -1,4 +1,4 @@
-package com.github.arosh.aoj4s
+package com.github.arosh.AOJ4s
 
 import java.net.URL
 import java.net.URLEncoder
@@ -57,8 +57,7 @@ object AOJ extends QueryWrapper {
 
     problemXml filter {
       x =>
-        x != <problem>
-             </problem>
+        x.toString().replaceAll("\n", "") != "<problem></problem>"
     } map {
       x => Problem(x)
     }

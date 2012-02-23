@@ -1,4 +1,4 @@
-package com.github.arosh.aoj4s
+package com.github.arosh.AOJ4s
 package info
 
 import scala.xml.Elem

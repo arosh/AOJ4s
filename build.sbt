@@ -1,6 +1,6 @@
-name := "aoj4s"
+name := "AOJ4s"
 
-version := "0.1"
+version := "1.0"
 
 organization := "com.github.arosh"
 
