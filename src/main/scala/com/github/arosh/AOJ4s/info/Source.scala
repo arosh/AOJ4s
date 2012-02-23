@@ -3,32 +3,30 @@ package info
 
 import scala.xml.Elem
 
-import XMLUtils.NodeSeq2AOJXML
-
 case class Source(sourceXml: Elem) {
-  lazy val id: String = sourceXml \ "id" content ()
+  lazy val id: String = sourceXml \ "id" text 
 
-  lazy val title: String = sourceXml \ "title" content ()
+  lazy val title: String = sourceXml \ "title" text 
 
-  lazy val subtitle: String = sourceXml \ "subtitle" content ()
+  lazy val subtitle: String = sourceXml \ "subtitle" text 
 
-  lazy val place: String = sourceXml \ "place" content ()
+  lazy val place: String = sourceXml \ "place" text 
 
-  lazy val abbr: String = sourceXml \ "abbr" content ()
+  lazy val abbr: String = sourceXml \ "abbr" text 
 
-  lazy val author1: String = sourceXml \ "author1" content ()
+  lazy val author1: String = sourceXml \ "author1" text 
 
-  lazy val author2: String = sourceXml \ "author2" content ()
+  lazy val author2: String = sourceXml \ "author2" text 
 
-  lazy val year: String = sourceXml \ "year" content ()
+  lazy val year: String = sourceXml \ "year" text 
 
-  lazy val month: String = sourceXml \ "month" content ()
+  lazy val month: String = sourceXml \ "month" text 
 
-  lazy val day: String = sourceXml \ "day" content ()
+  lazy val day: String = sourceXml \ "day" text 
 
-  lazy val note: String = sourceXml \ "note" content ()
+  lazy val note: String = sourceXml \ "note" text 
 
-  lazy val url: String = sourceXml \ "url" content ()
+  lazy val url: String = sourceXml \ "url" text 
 
-  lazy val judge: String = sourceXml \ "judge" content ()
+  lazy val judge: String = sourceXml \ "judge" text 
 }

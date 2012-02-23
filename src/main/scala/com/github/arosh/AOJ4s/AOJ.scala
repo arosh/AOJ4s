@@ -1,9 +1,6 @@
 package com.github.arosh.AOJ4s
 
-import java.net.URL
 import java.net.URLEncoder
-import xml.XML
-
 import query._
 import info._
 
@@ -17,9 +14,12 @@ object AOJ extends QueryWrapper {
 
   private def loadXML(params: String): Option[xml.Elem] = {
     try {
-      val ret = XML.load(new URL(basedURL + params))
+      val source = scala.io.Source.fromURL(basedURL + params, "UTF-8")
+      val str = source.mkString.replaceAll("\n", "")
+      source.close()
       Thread.sleep(SLEEP_TIME)
 
+      val ret = scala.xml.XML.loadString(str)
       Some(ret)
     } catch {
       case e: Exception => None
@@ -57,7 +57,7 @@ object AOJ extends QueryWrapper {
 
     problemXml filter {
       x =>
-        x.toString().replaceAll("\n", "") != "<problem></problem>"
+        x != <problem></problem>
     } map {
       x => Problem(x)
     }
