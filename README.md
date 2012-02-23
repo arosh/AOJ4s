@@ -5,12 +5,11 @@ This is AOJ4s, an API wrapper for [AIZU ONLINE JUDGE](http://judge.u-aizu.ac.jp/
 
 Example
 ==========
-	import jp.gr.java_conf.shora_kujira16.AOJ4s.AOJ._
+	import com.github.arosh.AOJ4s.AOJ._
 
-	object Main extends App {
-	  SLEEP_TIME = 1000
-	  println(user_list(solved_min = 500).user.map(_.id))
-	}
+	SLEEP_TIME = 1000
 
-	>> List(K_Operafan, s1150092, lyrically, shioshiota, Respect2D, laycurse, yukim, fura2, sune2, ishikado, ee67052, mamekin, rankalee)
+	user_list(solved_min = 500).get.user.map { _.id }
+
+	>> List(K_Operafan, s1150092, sune2, yukim, ishikado, lyrically, fura2, ee67052, Respect2D, shioshiota, laycurse, yutaka, mamekin, kyuridenamida, rankalee, blue_jam)
 
