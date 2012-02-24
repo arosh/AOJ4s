@@ -4,6 +4,7 @@ package info
 import scala.xml.Elem
 
 case class Source(sourceXml: Elem) {
+
   lazy val id: String = sourceXml \ "id" text
 
   lazy val title: String = sourceXml \ "title" text

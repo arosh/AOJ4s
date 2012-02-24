@@ -7,6 +7,7 @@ import scala.xml.NodeSeq
 case class StatusLog(status_logXml: Elem) {
 
   case class StatusStruct(statusXml: NodeSeq) {
+
     lazy val run_id: Int = (statusXml \ "run_id" text) toInt
 
     lazy val user_id: String = statusXml \ "user_id" text

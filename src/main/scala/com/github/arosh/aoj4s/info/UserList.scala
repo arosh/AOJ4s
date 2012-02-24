@@ -7,6 +7,7 @@ import scala.xml.NodeSeq
 case class UserList(user_listXml: Elem) {
 
   case class UserStruct(userXml: NodeSeq) {
+
     lazy val rank: Int = (userXml \ "rank" text) toInt
 
     lazy val id: String = userXml \ "id" text

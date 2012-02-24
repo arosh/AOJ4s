@@ -7,6 +7,7 @@ import scala.xml.NodeSeq
 case class ProblemList(problem_listXml: Elem) {
 
   case class ProblemStruct(problemXml: NodeSeq) {
+
     lazy val id: String = problemXml \ "id" text
 
     lazy val name: String = problemXml \ "name" text

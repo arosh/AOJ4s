@@ -7,6 +7,7 @@ import scala.xml.NodeSeq
 case class SolvedRecord(solved_recordXml: Elem) {
 
   case class SolvedStruct(solvedXml: NodeSeq) {
+
     lazy val run_id: Int = (solvedXml \ "run_id" text) toInt
 
     lazy val user_id: String = solvedXml \ "user_id" text

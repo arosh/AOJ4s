@@ -5,6 +5,7 @@ import scala.xml.Elem
 import scala.xml.NodeSeq
 
 case class User(userXml: Elem) {
+
   lazy val id: String = userXml \ "id" text
 
   lazy val name: String = userXml \ "name" text
@@ -16,6 +17,7 @@ case class User(userXml: Elem) {
   lazy val lastsubmitdate: Long = (userXml \ "lastsubmitdate" text) toLong
 
   case class StatusStruct(statusXml: NodeSeq) {
+
     lazy val submission: Int = (statusXml \ "submission" text) toInt
 
     lazy val solved: Int = (statusXml \ "solved" text) toInt
@@ -38,6 +40,7 @@ case class User(userXml: Elem) {
   lazy val status = StatusStruct(userXml \ "status")
 
   case class ProblemStruct(problemXml: NodeSeq) {
+
     lazy val id: String = problemXml \ "id" text
 
     lazy val submissiondate: Long = (problemXml \ "submissiondate" text) toLong
