@@ -7,17 +7,21 @@ import info._
 object AOJ extends QueryWrapper {
   private val AOJ_URI = "http://judge.u-aizu.ac.jp/onlinejudge/webservice/"
 
-  private type Tagged[U] = { type Tag = U }
+  private type Tagged[U] = {type Tag = U}
+
   protected class SleepTimeTag
+
   type SleepTime = Int with Tagged[SleepTimeTag]
 
   implicit def Int2SleepTime(i: Int): SleepTime = i.asInstanceOf[SleepTime]
+
   private val DEFAULT_SLEEP_TIME = 10000
 
   private def joinQuery[T <: Query[_]](queries: T*): String = {
-    queries.withFilter(null !=) map { p =>
-      "%s=%s".format(p.field, p.value)
-    } mkString ("?", "&", "")
+    queries.withFilter(null !=) map {
+      p =>
+        "%s=%s".format(p.field, p.value)
+    } mkString("?", "&", "")
   }
 
   private def loadXML(params: String)(
@@ -108,7 +112,7 @@ object AOJ extends QueryWrapper {
                 affiliation: Affiliation = null,
                 solved_min: SolvedMin = null,
                 solved_max: SolvedMax = null)(
-                  implicit st: SleepTime = DEFAULT_SLEEP_TIME): Option[UserList] = {
+    implicit st: SleepTime = DEFAULT_SLEEP_TIME): Option[UserList] = {
 
     // check
     if (criteria != null) {
@@ -143,7 +147,7 @@ object AOJ extends QueryWrapper {
                     language: Language = null,
                     date_begin: DateBegin = null,
                     date_end: DateEnd = null)(
-                      implicit st: SleepTime = DEFAULT_SLEEP_TIME): Option[SolvedRecord] = {
+    implicit st: SleepTime = DEFAULT_SLEEP_TIME): Option[SolvedRecord] = {
 
     // check
     require(user_id != null || problem_id != null, "User ID or Problem ID should be specified.")
@@ -173,7 +177,7 @@ object AOJ extends QueryWrapper {
                  problem_id: ProblemID = null,
                  start: Start = null,
                  limit: Limit = null)(
-                   implicit st: SleepTime = DEFAULT_SLEEP_TIME): Option[StatusLog] = {
+    implicit st: SleepTime = DEFAULT_SLEEP_TIME): Option[StatusLog] = {
 
     // check
     if (problem_id != null) {
@@ -200,7 +204,7 @@ object AOJ extends QueryWrapper {
    */
   def problem_category(id: ID = null,
                        category: Category = null)(
-                         implicit st: SleepTime = DEFAULT_SLEEP_TIME): Option[ProblemCategory] = {
+    implicit st: SleepTime = DEFAULT_SLEEP_TIME): Option[ProblemCategory] = {
 
     // check
     if (id != null) {

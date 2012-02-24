@@ -1,39 +1,39 @@
 package com.github.arosh.aoj4s
 
 object CATEGORIES {
-  /** Straightforward */
+  /**Straightforward */
   val SF = "straight"
 
-  /** Data Manipulation/Sort/Search */
+  /**Data Manipulation/Sort/Search */
   val DM = "datamanipu"
 
-  /** Simulation */
+  /**Simulation */
   val SM = "simulation"
 
-  /** String Manipulation */
+  /**String Manipulation */
   val ST = "string"
 
-  /** Parsing */
+  /**Parsing */
   val PR = "parsing"
 
-  /** Puzzle */
+  /**Puzzle */
   val PZ = "puzzle"
 
-  /** Computational Geometry */
+  /**Computational Geometry */
   val CG = "geometry"
 
-  /** Graph */
+  /**Graph */
   val GR = "graph"
 
-  /** Numeric Problems/Simulation */
+  /**Numeric Problems/Simulation */
   val NS = "numeric"
 
-  /** Combinatorial Problem */
+  /**Combinatorial Problem */
   val CP = "combinatorial"
 
-  /** Number Theory */
+  /**Number Theory */
   val NT = "number"
 
-  /** Probability */
+  /**Probability */
   val PB = "probability"
 }
