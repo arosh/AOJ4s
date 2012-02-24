@@ -5,7 +5,7 @@ This is AOJ4s, an API wrapper for [AIZU ONLINE JUDGE](http://judge.u-aizu.ac.jp/
 
 Example
 ==========
-	import com.github.arosh.AOJ4s.AOJ._
+	import com.github.arosh.aoj4s.AOJ._
 
 	SLEEP_TIME = 1000
 

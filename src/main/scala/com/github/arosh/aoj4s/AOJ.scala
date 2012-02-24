@@ -1,4 +1,4 @@
-package com.github.arosh.AOJ4s
+package com.github.arosh.aoj4s
 
 import java.net.URLEncoder
 import query._
