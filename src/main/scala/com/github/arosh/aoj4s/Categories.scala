@@ -1,6 +1,7 @@
 package com.github.arosh.aoj4s
 
 object CATEGORIES {
+
   /**Straightforward */
   val SF = "straight"
 
@@ -36,4 +37,5 @@ object CATEGORIES {
 
   /**Probability */
   val PB = "probability"
+
 }

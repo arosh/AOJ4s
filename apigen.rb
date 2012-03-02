@@ -55,4 +55,47 @@ category    String
   puts generate(class_name, wrapper_name)
 end
 
-info_package
+def category
+  def generate(category_list)
+    return <<-"EOS"
+package com.github.arosh.aoj4s
+
+object CATEGORIES {
+
+  #{category_list.join("\n\n  ")}
+
+}
+    EOS
+  end
+
+  source = <<-'EOS'
+SF straight       Straightforward
+DM datamanipu     Data Manipulation/Sort/Search
+SM simulation     Simulation
+ST string         String Manipulation
+PR parsing        Parsing
+PZ puzzle         Puzzle
+CG geometry       Computational Geometry
+GR graph          Graph
+NS numeric        Numeric Problems/Simulation
+CP combinatorial  Combinatorial Problem
+NT number         Number Theory
+PB probability    Probability
+  EOS
+
+  list = source.each_line.map {|line|
+    /^(\w{2}) (\w+)\s+(.+)$/.match(line.chomp)
+  }
+
+  category_list = list.map {|line|
+    "/**#{line[3]} */\n  val #{line[1]} = \"#{line[2]}\""
+  }
+
+  puts generate(category_list)
+
+end
+
+# info_package
+category
+
+
