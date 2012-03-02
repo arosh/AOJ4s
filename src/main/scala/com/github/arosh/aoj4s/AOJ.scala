@@ -142,8 +142,8 @@ object AOJ extends QueryWrapper {
    * @param date_begin The service returns records after date_begin.
    * @param date_end The service returns records before date_end.
    */
-  def solved_record(user_id: UserID = null,
-                    problem_id: ProblemID = null,
+  def solved_record(user_id: UserId = null,
+                    problem_id: ProblemId = null,
                     language: Language = null,
                     date_begin: DateBegin = null,
                     date_end: DateEnd = null)(
@@ -173,8 +173,8 @@ object AOJ extends QueryWrapper {
    * @param start Start position.
    * @param limit The number of records. (1 <= limit <= 20)
    */
-  def status_log(user_id: UserID = null,
-                 problem_id: ProblemID = null,
+  def status_log(user_id: UserId = null,
+                 problem_id: ProblemId = null,
                  start: Start = null,
                  limit: Limit = null)(
     implicit st: SleepTime = DEFAULT_SLEEP_TIME): Option[StatusLog] = {
@@ -202,7 +202,7 @@ object AOJ extends QueryWrapper {
    * @param id Problem ID.
    * @param category Category Name.
    */
-  def problem_category(id: ID = null,
+  def problem_category(id: Id = null,
                        category: Category = null)(
     implicit st: SleepTime = DEFAULT_SLEEP_TIME): Option[ProblemCategory] = {
 

@@ -14,9 +14,9 @@ package object query {
 
   case class SolvedMax(value: Int) extends Query[Int]("solved_max")
 
-  case class UserID(value: String) extends Query[String]("user_id")
+  case class UserId(value: String) extends Query[String]("user_id")
 
-  case class ProblemID(value: String) extends Query[String]("problem_id")
+  case class ProblemId(value: String) extends Query[String]("problem_id")
 
   case class Language(value: String) extends Query[String]("language")
 
@@ -28,11 +28,12 @@ package object query {
 
   case class Limit(value: Int) extends Query[Int]("limit")
 
-  case class ID(value: String) extends Query[String]("id")
+  case class Id(value: String) extends Query[String]("id")
 
   case class Category(value: String) extends Query[String]("category")
 
   trait QueryWrapper {
+
     implicit def WrapCriteria(value: Int) = Criteria(value)
 
     implicit def WrapAffiliation(value: String) = Affiliation(value)
@@ -41,9 +42,9 @@ package object query {
 
     implicit def WrapSolvedMax(value: Int) = SolvedMax(value)
 
-    implicit def WrapUserID(value: String) = UserID(value)
+    implicit def WrapUserId(value: String) = UserId(value)
 
-    implicit def WrapProblemID(value: String) = ProblemID(value)
+    implicit def WrapProblemId(value: String) = ProblemId(value)
 
     implicit def WrapLanguage(value: String) = Language(value)
 
@@ -55,9 +56,9 @@ package object query {
 
     implicit def WrapLimit(value: Int) = Limit(value)
 
-    implicit def WrapID(value: String) = ID(value)
+    implicit def WrapId(value: String) = Id(value)
 
     implicit def WrapCategory(value: String) = Category(value)
-  }
 
+  }
 }
