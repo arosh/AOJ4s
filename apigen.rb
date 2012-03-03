@@ -229,28 +229,143 @@ case class #{name.to_pascal_case}(#{name}XML: Elem) {
 
 end
 
-source = <<-'EOS'
-id                  String  Problem ID.
-name                String  Problem Name.
-available           Int     Judge Type (0:Not available, 1:Judge, 2:Judge allowing precision error, 3:Judge with Validator, 4:Reactive judge).
-problemtimelimit    Int     Time limit assigned to the problem (second).
-problemmemorylimit  Int     Memory limit assigned to the problem (Kbyte).
-only status                 Problem's status
-  submission      Int       The number of submissions.
-  accepted        Int       The number of accepted submissions.
-  wronganswer     Int       The number of wrong answers.
-  timelimit       Int       The number of time limit exceeding.
-  memorylimit     Int       The number of memory limit exceeding.
-  outputlimit     Int       The number of output limit exceeding.
-  runtimeerror    Int       The number of runtime errors.
-many solved_list user       List of users who solved the problem
-  id              String    User ID.
-  submissiondata  Long      Date of submission.
-  language        String    Programming Language.
-  cputime         Int       CPU Time (sentisecond).
-  memory          Int       Memory usage (Kbyte).
-  code_size       Int       Code size (byte).
-EOS
+def gen_user
+  source = <<-'EOS'
+id	String	User ID.
+name	String	User Name.
+affiliation	String	Affiliation of the user.
+registerdate	Long	Registered date.
+lastsubmitdate	Long	Last submitted date.
+only status		User's status
+  submission	Int	 The number of submissions.
+  solved	Int	 The number of solved problems.
+  accepted	Int	 The number of accepted submissions.
+  wronganswer	Int	 The number of wrong answers.
+  timelimit	Int	 The number of time limit exceeding.
+  memorylimit	Int	 The number of memory limit exceeding.
+  outputlimit	Int	 The number of output limit exceeding.
+  runtimeerror	Int	 The number of runtime errors.
+  compileerror	Int	 The number of compile errors.
+many solved_list problem		List of solved problems
+  id	String	 Problem ID.
+  submissiondate	Long	Date of submission.
+  language	String	Programming Language.
+  cputime	Int	CPU Time (sentisecond).
+  memory	Int	Memory usage (Kbyte).
+  code_size	Int	Code size (byte).
+  EOS
+  xml_info("user", source.split("\n"))
+end
 
-xml_info("problem", source.split("\n"))
+def gen_problem
+  source = <<-'EOS'
+id	String	Problem ID.
+name	String	Problem Name.
+available	Int	Judge Type (0:Not available, 1:Judge, 2:Judge allowing precision error, 3:Judge with Validator, 4:Reactive judge).
+problemtimelimit	Int	Time limit assigned to the problem (second).
+problemmemorylimit	Int	Memory limit assigned to the problem (Kbyte).
+only status		Problem's status
+  submission	Int	 The number of submissions.
+  accepted	Int	 The number of accepted submissions.
+  wronganswer	Int	 The number of wrong answers.
+  timelimit	Int	 The number of time limit exceeding.
+  memorylimit	Int	 The number of memory limit exceeding.
+  outputlimit	Int	 The number of output limit exceeding.
+  runtimeerror	Int	 The number of runtime errors.
+many solved_list user		List of users who solved the problem
+  id	String	 User ID.
+  submissiondate	Long	Date of submission.
+  language	String	Programming Language.
+  cputime	Int	CPU Time (sentisecond).
+  memory	Int	Memory usage (Kbyte).
+  code_size	Int	Code size (byte).
+  EOS
+  xml_info("problem", source.split("\n"))
+end
+
+def gen_problem_list
+  source = <<-'EOS'
+many problem_list problem		List of problems in the specified volume
+  id	String	 Problem ID.
+  name	String	Name of the problem.
+  problemtimelimit	Int	Time limit assigned to the problem (second).
+  problemmemorylimit	Int	Memory limit assigned to the problem (Kbyte).
+  EOS
+  xml_info("problem_list", source.split("\n"))
+end
+
+def gen_user_list
+  source = <<-'EOS'
+many user_list user		List of users
+  rank	Int	 The rank based on the specified criteria.
+  id	String	 User ID.
+  name	String	 Name of the user.
+  affiliation	String	 Affiliation of the user.
+  solved	Int	 The number of solved problems.
+  rating	Float	 Rating of the user.  
+  EOS
+  xml_info("user_list", source.split("\n"))
+end
+
+def gen_sovled_record
+  source = <<-'EOS'
+many solved_record_list solved		List of solved records
+  run_id	Int	 Run ID.
+  user_id	String	 User ID.
+  problem_id	String	 Problem ID.
+  date	Long	 Date of submission.
+  language	String	 Programming language.
+  cputime	Int	 CPU Time (sentisecond).
+  memory	Int	 Memory usage (Kbyte).
+  code_size	Int	 Code size (byte).
+  EOS
+  xml_info("solved_record", source.split("\n"))
+end
+
+def gen_status_log
+  source = <<-'EOS'
+many status_list status		List of status records
+  run_id	Int	 Run ID.
+  user_id	String	 User ID.
+  problem_id	String	 Problem ID.
+  submission_date	Long	 Date of submission.
+  status	String	 Judge status.
+  language	String	 Programming language.
+  cputime	Int	 CPU Time (sentisecond).
+  memory	Int	 Memory usage (Kbyte).
+  code_size	Int	 Code size (byte).
+  EOS
+  xml_info("status_log", source.split("\n"))
+end
+
+def gen_problem_category
+  source = <<-'EOS'
+many problem_category problem		List of problems.
+  id	String	Problem ID.
+  category	String	Category Name.
+  score	Float	Score assigned to the problem.
+  EOS
+  xml_info("problem_category", source.split("\n"))
+end
+
+def gen_source
+  source = <<-'EOS'
+id	String	Problem ID.
+title	String	Title of the source.
+subtitle	String	Subtitle of the source.
+place	String	The place the corresponding contest.
+abbr	String	Abbreviation of the title.
+author1	String	Author of the problem.
+author2	String	Second author of the problem.
+year	String	Year
+month	String	Month
+day	String	Day
+note	String	Special notes
+url	String	URL
+judge	String	Judge
+  EOS
+  xml_info("source", source.split("\n"))
+end
+
+gen_source
 

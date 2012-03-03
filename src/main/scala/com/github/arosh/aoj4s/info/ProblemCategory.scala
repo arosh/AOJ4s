@@ -4,16 +4,22 @@ package info
 import scala.xml.Elem
 import scala.xml.NodeSeq
 
-case class ProblemCategory(problem_categoryXml: Elem) {
+case class ProblemCategory(problem_categoryXML: Elem) {
 
-  case class ProblemStruct(problemXml: NodeSeq) {
+  /** List of problems. */
+  lazy val problem_category = problem_categoryXML \ "problem_category" \ "problem" map (x => ProblemStruct(x))
 
-    lazy val id: String = (problemXml \ "id").text
+  case class ProblemStruct(problemXML: NodeSeq) {
 
-    lazy val category: String = (problemXml \ "category").text
+    /** Problem ID. */
+    lazy val id: String = (problemXML \ "id").text
 
-    lazy val score: Float = (problemXml \ "score" text).toFloat
+    /** Category Name. */
+    lazy val category: String = (problemXML \ "category").text
+
+    /** Score assigned to the problem. */
+    lazy val score: Float = (problemXML \ "score").text.toFloat
+
   }
 
-  lazy val problem = problem_categoryXml \ "problem" map (x => ProblemStruct(x))
 }

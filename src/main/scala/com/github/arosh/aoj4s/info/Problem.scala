@@ -4,51 +4,74 @@ package info
 import scala.xml.Elem
 import scala.xml.NodeSeq
 
-case class Problem(problemXml: Elem) {
+case class Problem(problemXML: Elem) {
 
-  lazy val id: String = (problemXml \ "id").text
+  /** Problem ID. */
+  lazy val id: String = (problemXML \ "id").text
 
-  lazy val name: String = (problemXml \ "name").text
+  /** Problem Name. */
+  lazy val name: String = (problemXML \ "name").text
 
-  lazy val available: Int = (problemXml \ "available" text).toInt
+  /** Judge Type (0:Not available, 1:Judge, 2:Judge allowing precision error, 3:Judge with Validator, 4:Reactive judge). */
+  lazy val available: Int = (problemXML \ "available").text.toInt
 
-  lazy val problemtimelimit: Int = (problemXml \ "problemtimelimit" text).toInt
+  /** Time limit assigned to the problem (second). */
+  lazy val problemtimelimit: Int = (problemXML \ "problemtimelimit").text.toInt
 
-  lazy val problemmemorylimit: Int = (problemXml \ "problemmemorylimit" text).toInt
+  /** Memory limit assigned to the problem (Kbyte). */
+  lazy val problemmemorylimit: Int = (problemXML \ "problemmemorylimit").text.toInt
 
-  case class StatusStruct(statusXml: NodeSeq) {
+  /** Problem's status */
+  lazy val status = StatusStruct(problemXML \ "status")
 
-    lazy val submission: Int = (statusXml \ "submission" text).toInt
+  case class StatusStruct(statusXML: NodeSeq) {
 
-    lazy val accepted: Int = (statusXml \ "accepted" text).toInt
+    /** The number of submissions. */
+    lazy val submission: Int = (statusXML \ "submission").text.toInt
 
-    lazy val wronganswer: Int = (statusXml \ "wronganswer" text).toInt
+    /** The number of accepted submissions. */
+    lazy val accepted: Int = (statusXML \ "accepted").text.toInt
 
-    lazy val timelimit: Int = (statusXml \ "timelimit" text).toInt
+    /** The number of wrong answers. */
+    lazy val wronganswer: Int = (statusXML \ "wronganswer").text.toInt
 
-    lazy val memorylimit: Int = (statusXml \ "memorylimit" text).toInt
+    /** The number of time limit exceeding. */
+    lazy val timelimit: Int = (statusXML \ "timelimit").text.toInt
 
-    lazy val outputlimit: Int = (statusXml \ "outputlimit" text).toInt
+    /** The number of memory limit exceeding. */
+    lazy val memorylimit: Int = (statusXML \ "memorylimit").text.toInt
 
-    lazy val runtimeerror: Int = (statusXml \ "runtimeerror" text).toInt
+    /** The number of output limit exceeding. */
+    lazy val outputlimit: Int = (statusXML \ "outputlimit").text.toInt
+
+    /** The number of runtime errors. */
+    lazy val runtimeerror: Int = (statusXML \ "runtimeerror").text.toInt
+
   }
 
-  lazy val status = StatusStruct(problemXml \ "status")
+  /** List of users who solved the problem */
+  lazy val solved_list = problemXML \ "solved_list" \ "user" map (x => UserStruct(x))
 
-  case class UserStruct(userXml: NodeSeq) {
+  case class UserStruct(userXML: NodeSeq) {
 
-    lazy val id: String = (userXml \ "id").text
+    /** User ID. */
+    lazy val id: String = (userXML \ "id").text
 
-    lazy val submissiondate: Long = (userXml \ "submissiondate" text).toLong
+    /** Date of submission. */
+    lazy val submissiondata: Long = (userXML \ "submissiondata").text.toLong
 
-    lazy val language: String = (userXml \ "language").text
+    /** Programming Language. */
+    lazy val language: String = (userXML \ "language").text
 
-    lazy val cputime: Int = (userXml \ "cputime" text).toInt
+    /** CPU Time (sentisecond). */
+    lazy val cputime: Int = (userXML \ "cputime").text.toInt
 
-    lazy val memory: Int = (userXml \ "memory" text).toInt
+    /** Memory usage (Kbyte). */
+    lazy val memory: Int = (userXML \ "memory").text.toInt
 
-    lazy val code_size: Int = (userXml \ "code_size" text).toInt
+    /** Code size (byte). */
+    lazy val code_size: Int = (userXML \ "code_size").text.toInt
+
   }
 
-  lazy val solved_list = problemXml \ "solved_list" \ "user" map (x => UserStruct(x))
 }

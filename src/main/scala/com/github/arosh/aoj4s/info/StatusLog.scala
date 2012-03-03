@@ -4,28 +4,40 @@ package info
 import scala.xml.Elem
 import scala.xml.NodeSeq
 
-case class StatusLog(status_logXml: Elem) {
+case class StatusLog(status_logXML: Elem) {
 
-  case class StatusStruct(statusXml: NodeSeq) {
+  /** List of status records */
+  lazy val status_list = status_logXML \ "status_list" \ "status" map (x => StatusStruct(x))
 
-    lazy val run_id: Int = (statusXml \ "run_id" text) toInt
+  case class StatusStruct(statusXML: NodeSeq) {
 
-    lazy val user_id: String = statusXml \ "user_id" text
+    /** Run ID. */
+    lazy val run_id: Int = (statusXML \ "run_id").text.toInt
 
-    lazy val problem_id: String = statusXml \ "problem_id" text
+    /** User ID. */
+    lazy val user_id: String = (statusXML \ "user_id").text
 
-    lazy val submission_date: Long = (statusXml \ "submission_date" text) toLong
+    /** Problem ID. */
+    lazy val problem_id: String = (statusXML \ "problem_id").text
 
-    lazy val status: String = statusXml \ "status" text
+    /** Date of submission. */
+    lazy val submission_date: Long = (statusXML \ "submission_date").text.toLong
 
-    lazy val language: String = statusXml \ "language" text
+    /** Judge status. */
+    lazy val status: String = (statusXML \ "status").text
 
-    lazy val cpu_time: Int = (statusXml \ "cpu_time" text) toInt
+    /** Programming language. */
+    lazy val language: String = (statusXML \ "language").text
 
-    lazy val memory: Int = (statusXml \ "memory" text).toInt
+    /** CPU Time (sentisecond). */
+    lazy val cputime: Int = (statusXML \ "cputime").text.toInt
 
-    lazy val code_size: Int = (statusXml \ "code_size" text) toInt
+    /** Memory usage (Kbyte). */
+    lazy val memory: Int = (statusXML \ "memory").text.toInt
+
+    /** Code size (byte). */
+    lazy val code_size: Int = (statusXML \ "code_size").text.toInt
+
   }
 
-  lazy val status = status_logXml \ "status" map (x => StatusStruct(x))
 }

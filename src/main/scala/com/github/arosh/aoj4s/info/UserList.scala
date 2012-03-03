@@ -4,22 +4,31 @@ package info
 import scala.xml.Elem
 import scala.xml.NodeSeq
 
-case class UserList(user_listXml: Elem) {
+case class UserList(user_listXML: Elem) {
 
-  case class UserStruct(userXml: NodeSeq) {
+  /** List of users */
+  lazy val user_list = user_listXML \ "user_list" \ "user" map (x => UserStruct(x))
 
-    lazy val rank: Int = (userXml \ "rank" text) toInt
+  case class UserStruct(userXML: NodeSeq) {
 
-    lazy val id: String = userXml \ "id" text
+    /** The rank based on the specified criteria. */
+    lazy val rank: Int = (userXML \ "rank").text.toInt
 
-    lazy val name: String = userXml \ "name" text
+    /** User ID. */
+    lazy val id: String = (userXML \ "id").text
 
-    lazy val affiliation: String = userXml \ "affiliation" text
+    /** Name of the user. */
+    lazy val name: String = (userXML \ "name").text
 
-    lazy val solved: Int = (userXml \ "solved" text) toInt
+    /** Affiliation of the user. */
+    lazy val affiliation: String = (userXML \ "affiliation").text
 
-    lazy val rating: Float = (userXml \ "rating" text) toFloat
+    /** The number of solved problems. */
+    lazy val solved: Int = (userXML \ "solved").text.toInt
+
+    /** Rating of the user.   */
+    lazy val rating: Float = (userXML \ "rating").text.toFloat
+
   }
 
-  lazy val user = user_listXml \ "user" map (x => UserStruct(x))
 }

@@ -2,32 +2,47 @@ package com.github.arosh.aoj4s
 package info
 
 import scala.xml.Elem
+import scala.xml.NodeSeq
 
-case class Source(sourceXml: Elem) {
+case class Source(sourceXML: Elem) {
 
-  lazy val id: String = sourceXml \ "id" text
+  /** Problem ID. */
+  lazy val id: String = (sourceXML \ "id").text
 
-  lazy val title: String = sourceXml \ "title" text
+  /** Title of the source. */
+  lazy val title: String = (sourceXML \ "title").text
 
-  lazy val subtitle: String = sourceXml \ "subtitle" text
+  /** Subtitle of the source. */
+  lazy val subtitle: String = (sourceXML \ "subtitle").text
 
-  lazy val place: String = sourceXml \ "place" text
+  /** The place the corresponding contest. */
+  lazy val place: String = (sourceXML \ "place").text
 
-  lazy val abbr: String = sourceXml \ "abbr" text
+  /** Abbreviation of the title. */
+  lazy val abbr: String = (sourceXML \ "abbr").text
 
-  lazy val author1: String = sourceXml \ "author1" text
+  /** Author of the problem. */
+  lazy val author1: String = (sourceXML \ "author1").text
 
-  lazy val author2: String = sourceXml \ "author2" text
+  /** Second author of the problem. */
+  lazy val author2: String = (sourceXML \ "author2").text
 
-  lazy val year: String = sourceXml \ "year" text
+  /** Year */
+  lazy val year: String = (sourceXML \ "year").text
 
-  lazy val month: String = sourceXml \ "month" text
+  /** Month */
+  lazy val month: String = (sourceXML \ "month").text
 
-  lazy val day: String = sourceXml \ "day" text
+  /** Day */
+  lazy val day: String = (sourceXML \ "day").text
 
-  lazy val note: String = sourceXml \ "note" text
+  /** Special notes */
+  lazy val note: String = (sourceXML \ "note").text
 
-  lazy val url: String = sourceXml \ "url" text
+  /** URL */
+  lazy val url: String = (sourceXML \ "url").text
 
-  lazy val judge: String = sourceXml \ "judge" text
+  /** Judge */
+  lazy val judge: String = (sourceXML \ "judge").text
+
 }

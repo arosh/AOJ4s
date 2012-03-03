@@ -4,26 +4,37 @@ package info
 import scala.xml.Elem
 import scala.xml.NodeSeq
 
-case class SolvedRecord(solved_recordXml: Elem) {
+case class SolvedRecord(solved_recordXML: Elem) {
 
-  case class SolvedStruct(solvedXml: NodeSeq) {
+  /** List of solved records */
+  lazy val solved_record_list = solved_recordXML \ "solved_record_list" \ "solved" map (x => SolvedStruct(x))
 
-    lazy val run_id: Int = (solvedXml \ "run_id" text) toInt
+  case class SolvedStruct(solvedXML: NodeSeq) {
 
-    lazy val user_id: String = solvedXml \ "user_id" text
+    /** Run ID. */
+    lazy val run_id: Int = (solvedXML \ "run_id").text.toInt
 
-    lazy val problem_id: String = solvedXml \ "problem_id" text
+    /** User ID. */
+    lazy val user_id: String = (solvedXML \ "user_id").text
 
-    lazy val date: Long = (solvedXml \ "date" text).toLong
+    /** Problem ID. */
+    lazy val problem_id: String = (solvedXML \ "problem_id").text
 
-    lazy val languate: String = solvedXml \ "languate" text
+    /** Date of submission. */
+    lazy val date: Long = (solvedXML \ "date").text.toLong
 
-    lazy val cputime: Int = (solvedXml \ "cputime" text) toInt
+    /** Programming language. */
+    lazy val language: String = (solvedXML \ "language").text
 
-    lazy val memory: Int = (solvedXml \ "memory" text) toInt
+    /** CPU Time (sentisecond). */
+    lazy val cputime: Int = (solvedXML \ "cputime").text.toInt
 
-    lazy val code_size: Int = (solvedXml \ "code_size" text) toInt
+    /** Memory usage (Kbyte). */
+    lazy val memory: Int = (solvedXML \ "memory").text.toInt
+
+    /** Code size (byte). */
+    lazy val code_size: Int = (solvedXML \ "code_size").text.toInt
+
   }
 
-  lazy val solved = solved_recordXml \ "solved" map (x => SolvedStruct(x))
 }

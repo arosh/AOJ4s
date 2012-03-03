@@ -4,18 +4,25 @@ package info
 import scala.xml.Elem
 import scala.xml.NodeSeq
 
-case class ProblemList(problem_listXml: Elem) {
+case class ProblemList(problem_listXML: Elem) {
 
-  case class ProblemStruct(problemXml: NodeSeq) {
+  /** List of problems in the specified volume */
+  lazy val problem_list = problem_listXML \ "problem_list" \ "problem" map (x => ProblemStruct(x))
 
-    lazy val id: String = problemXml \ "id" text
+  case class ProblemStruct(problemXML: NodeSeq) {
 
-    lazy val name: String = problemXml \ "name" text
+    /** Problem ID. */
+    lazy val id: String = (problemXML \ "id").text
 
-    lazy val problemtimelimit: Int = (problemXml \ "problemtimelimit" text) toInt
+    /** Name of the problem. */
+    lazy val name: String = (problemXML \ "name").text
 
-    lazy val problemmemorylimit: Int = (problemXml \ "problemmemorylimit" text) toInt
+    /** Time limit assigned to the problem (second). */
+    lazy val problemtimelimit: Int = (problemXML \ "problemtimelimit").text.toInt
+
+    /** Memory limit assigned to the problem (Kbyte). */
+    lazy val problemmemorylimit: Int = (problemXML \ "problemmemorylimit").text.toInt
+
   }
 
-  lazy val problem_list = problem_listXml \ "problem_list" \ "problem" map (x => ProblemStruct(x))
 }
