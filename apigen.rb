@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-def info_package
+def query_package
   def generate(class_name, wrapper_name)
     return <<-"EOS"
 package com.github.arosh.aoj4s
@@ -95,7 +95,129 @@ PB probability    Probability
 
 end
 
-# info_package
-category
+def xml_info(name, source)
+  def generate(name, s)
+    return <<-"EOS"
+ckage com.github.arosh.aoj4s
+package info
 
+import scala.xml.Elem
+import scala.xml.NodeSeq
+
+case class #{name.capitalize}(#{name}XML: Elem) {
+#{s}
+}
+    EOS
+  end
+
+  only = []
+  many = []
+  normal = []
+
+  source.size.times do |i|
+    if source[i] =~ /^only\s+(\w+)\s+(.+)/
+      # only
+      pname = $1
+      pcomment = $2
+      tmp = []
+
+      i += 1
+      while(i < source.size && source[i] =~ /^(?:\t|  )(\w+)\s+(\w+)\s+(.+)/)
+        name = $1
+        type = $2
+        comment = $3
+        tmp.push [name, type, comment]
+        i += 1
+      end
+
+      only.push [pname, pcomment, tmp]
+
+    elsif source[i] =~ /^many\s+(\w+)\s+(\w+)\s+(.+)/
+      # many
+      pname = $1
+      pinner = $2
+      pcomment = $3
+      tmp = []
+
+      i += 1
+      while(i < source.size && source[i] =~ /^(?:\t|  )(\w+)\s+(\w+)\s+(.+)/)
+        name = $1
+        type = $2
+        comment = $3
+        tmp.push [name, type, comment]
+        i += 1
+      end
+
+      many.push [pname, pinner, pcomment, tmp]
+
+    elsif source[i] =~ /^(\w+)\s+(\w+)\s+(.+)/
+      # elem
+      name = $1
+      type = $2
+      comment = $3
+
+      normal.push [name, type, comment]
+    end
+
+  end
+
+  # p only
+  # p many
+  # p normal
+
+  xml_name = name + "XML"
+
+  normalsc = normal.map {|elem|
+    "/**#{elem[2]} */\n" +
+    "lazy val #{elem[0]}: #{elem[1]} = (xml_name \\ \"#{elem[0]}\").text" +
+          (elem[1] == "String" ? "" : ".to#{elem[1]}")
+  }.join("\n\n")
+
+  onlysc = only.map {|par|
+    codebox = []
+    codebox.push "/**#{par[1]} */\n" +
+                    "lazy val #{par[0]} = #{par[0].capitalize}Struct(#{xml_name} \\ \"#{par[0]}\")"
+
+    elem_xml_name = "#{par[0]}XML"
+    codebox.push "case class #{par[0].capitalize}Struct(#{elem_xml_name}: NodeSeq) {"
+
+
+    par[2].each do|elem|
+      codebox.push "  /**#{elem[2]} */\n" +
+                   "  lazy val #{elem[0]}: #{elem[1]} = (#{elem_xml_name} \\ \"#{elem[0]}\").text" +
+                        (elem[1] == "String" ? "" : ".to#{elem[1]}")
+    end
+
+    codebox.push "}"
+    codebox.join("\n\n")
+  }
+
+  puts onlysc
+
+end
+
+source = <<-'EOS'
+id                  String  Problem ID.
+name                String  Problem Name.
+available           Int     Judge Type (0:Not available, 1:Judge, 2:Judge allowing precision error, 3:Judge with Validator, 4:Reactive judge).
+problemtimelimit    Int     Time limit assigned to the problem (second).
+problemmemorylimit  Int     Memory limit assigned to the problem (Kbyte).
+only status                 Problem's status
+  submission      Int       The number of submissions.
+  accepted        Int       The number of accepted submissions.
+  wronganswer     Int       The number of wrong answers.
+  timelimit       Int       The number of time limit exceeding.
+  memorylimit     Int       The number of memory limit exceeding.
+  outputlimit     Int       The number of output limit exceeding.
+  runtimeerror    Int       The number of runtime errors.
+many solved_list user       List of users who solved the problem
+  id              String    User ID.
+  submissiondata  Long      Date of submission.
+  language        String    Programming Language.
+  cputime         Int       CPU Time (sentisecond).
+  memory          Int       Memory usage (Kbyte).
+  code_size       Int       Code size (byte).
+EOS
+
+xml_info("problem", source.split("\n"))
 
