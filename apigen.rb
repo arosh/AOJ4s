@@ -1,5 +1,15 @@
 #!/usr/bin/env ruby
 
+class String
+  def to_pascal_case
+    self.split("_").map {|s| s.capitalize }.join
+  end
+end
+
+def scala_doc_comment(s)
+  return "/** #{s} */"
+end
+
 def query_package
   def generate(class_name, wrapper_name)
     return <<-"EOS"
@@ -40,7 +50,8 @@ category    String
 
   queries = source.each_line.map {|line|
     name, type = line.chomp.split(/ +/)
-    upper_name = name.split("_").map {|s| s.capitalize }.join
+    upper_name = name.to_pascal_case
+    # upper_name = name.split("_").map {|s| s.capitalize }.join
     [upper_name, type, name]
   }
 
@@ -88,24 +99,26 @@ PB probability    Probability
   }
 
   category_list = list.map {|line|
-    "/**#{line[3]} */\n  val #{line[1]} = \"#{line[2]}\""
+    "#{scala_doc_comment(line[3])}\n  val #{line[1]} = \"#{line[2]}\""
   }
 
   puts generate(category_list)
 
 end
 
-def xml_info(name, source)
+def xml_info(_name, source)
   def generate(name, s)
     return <<-"EOS"
-ckage com.github.arosh.aoj4s
+package com.github.arosh.aoj4s
 package info
 
 import scala.xml.Elem
 import scala.xml.NodeSeq
 
-case class #{name.capitalize}(#{name}XML: Elem) {
+case class #{name.to_pascal_case}(#{name}XML: Elem) {
+
 #{s}
+
 }
     EOS
   end
@@ -165,25 +178,25 @@ case class #{name.capitalize}(#{name}XML: Elem) {
   # p many
   # p normal
 
-  xml_name = name + "XML"
+  xml_name = _name + "XML"
 
   normalsc = normal.map {|elem|
-    "/**#{elem[2]} */\n" +
-    "lazy val #{elem[0]}: #{elem[1]} = (xml_name \\ \"#{elem[0]}\").text" +
+    "#{scala_doc_comment(elem[2])}\n" +
+    "lazy val #{elem[0]}: #{elem[1]} = (#{xml_name} \\ \"#{elem[0]}\").text" +
           (elem[1] == "String" ? "" : ".to#{elem[1]}")
   }.join("\n\n")
 
   onlysc = only.map {|par|
     codebox = []
-    codebox.push "/**#{par[1]} */\n" +
-                    "lazy val #{par[0]} = #{par[0].capitalize}Struct(#{xml_name} \\ \"#{par[0]}\")"
+    codebox.push "#{scala_doc_comment(par[1])}\n" +
+                    "lazy val #{par[0]} = #{par[0].to_pascal_case}Struct(#{xml_name} \\ \"#{par[0]}\")"
 
     elem_xml_name = "#{par[0]}XML"
     codebox.push "case class #{par[0].capitalize}Struct(#{elem_xml_name}: NodeSeq) {"
 
 
-    par[2].each do|elem|
-      codebox.push "  /**#{elem[2]} */\n" +
+    par[2].each do |elem|
+      codebox.push "  #{scala_doc_comment(elem[2])}\n" +
                    "  lazy val #{elem[0]}: #{elem[1]} = (#{elem_xml_name} \\ \"#{elem[0]}\").text" +
                         (elem[1] == "String" ? "" : ".to#{elem[1]}")
     end
@@ -192,7 +205,27 @@ case class #{name.capitalize}(#{name}XML: Elem) {
     codebox.join("\n\n")
   }
 
-  puts onlysc
+
+  manysc = many.map {|par|
+    codebox = []
+    codebox.push "#{scala_doc_comment(par[2])}\n" +
+                  "lazy val #{par[0]} = #{xml_name} \\ \"#{par[0]}\" \\ \"#{par[1]}\" map (x => #{par[1].to_pascal_case}Struct(x))"
+
+    elem_xml_name = "#{par[1]}XML"
+    codebox.push "case class #{par[1].to_pascal_case}Struct(#{elem_xml_name}: NodeSeq) {"
+
+    par[3].each do |elem|
+      codebox.push "  #{scala_doc_comment(elem[2])}\n" +
+                   "  lazy val #{elem[0]}: #{elem[1]} = (#{elem_xml_name} \\ \"#{elem[0]}\").text" +
+                    (elem[1] == "String" ? "" : ".to#{elem[1]}")
+
+    end
+
+    codebox.push "}"
+    codebox.join("\n\n")
+  }
+
+  puts generate(_name, [normalsc, onlysc, manysc].join("\n\n").each_line.map {|s| "  " + s}.join)
 
 end
 
