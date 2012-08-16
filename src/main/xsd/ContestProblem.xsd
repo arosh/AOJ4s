@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+  targetNamespace="http://github.com/arosh/AOJ4s/ContestProblem"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="contest_problem">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="problem" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" type="xs:string"/>
+              <xs:element name="contest_id" type="xs:string"/>
+              <xs:element name="available" type="xs:boolean"/>
+              <xs:element name="doc_type" type="xs:integer"/>
+              <xs:element name="publication_date" type="xs:integer"/>
+              <xs:element name="name" type="xs:string"/>
+              <xs:element name="tle" type="xs:integer"/>
+              <xs:element name="mle" type="xs:integer"/>
+              <xs:element name="submissions" type="xs:integer"/>
+              <xs:element name="solved_user" type="xs:integer"/>
+              <xs:element name="accepted" type="xs:integer"/>
+              <xs:element name="wronganswer" type="xs:integer"/>
+              <xs:element name="timelimit" type="xs:integer"/>
+              <xs:element name="memorylimit" type="xs:integer"/>
+              <xs:element name="runtimeerror" type="xs:integer"/>
+              <xs:element name="outputlimit" type="xs:integer"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+  targetNamespace="http://github.com/arosh/AOJ4s/SolvedRecord"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="solved_record_list">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="solved" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="run_id" type="xs:int"/>
+              <xs:element name="user_id" type="xs:string"/>
+              <xs:element name="problem_id" type="xs:string"/>
+              <xs:element name="date" type="xs:long"/>
+              <xs:element name="language" type="xs:string"/>
+              <xs:element name="cputime" type="xs:int"/>
+              <xs:element name="memory" type="xs:int"/>
+              <xs:element name="code_size" type="xs:int"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

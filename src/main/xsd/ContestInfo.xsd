@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+  targetNamespace="http://github.com/arosh/AOJ4s/ContestInfo"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="contest_info">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:string"/>
+        <xs:element name="type" type="xs:string"/>
+        <xs:element name="policy" type="xs:string"/>
+        <xs:element name="no" type="xs:integer"/>
+        <xs:element name="contest_second" type="xs:integer"/>
+        <xs:element name="number_of_problems" type="xs:integer"/>
+        <xs:element name="title" type="xs:string"/>
+        <xs:element name="start_date" type="xs:integer"/>
+        <xs:element name="end_date" type="xs:integer"/>
+        <xs:element name="comment" type="xs:string"/>
+        <xs:element name="information" type="xs:string"/>
+        <xs:element name="visible" type="xs:boolean"/>
+        <xs:element name="elaps" type="xs:integer"/>
+        <xs:element name="remain" type="xs:integer"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

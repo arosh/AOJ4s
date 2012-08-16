@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+  targetNamespace="http://github.com/arosh/AOJ4s/ContestStatusLog"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="contest_status">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="status" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="run_id" type="xs:integer"/>
+              <xs:element name="contest_id" type="xs:string"/>
+              <xs:element name="user_id" type="xs:string"/>
+              <xs:element name="problem_id" type="xs:string"/>
+              <xs:element name="submission_date" type="xs:integer"/>
+              <xs:element name="elapsed_time" type="xs:integer"/>
+              <xs:element name="judge_date" type="xs:integer"/>
+              <xs:element name="language" type="xs:string"/>
+              <xs:element name="cputime" type="xs:integer"/>
+              <xs:element name="memory" type="xs:integer"/>
+              <xs:element name="code_size" type="xs:integer"/>
+              <xs:element name="status_code" type="xs:integer"/>
+              <xs:element name="accuracy" type="xs:string"/>
+              <xs:element name="policy" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

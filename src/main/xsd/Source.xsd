@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+  targetNamespace="http://github.com/arosh/AOJ4s/Source"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="source">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:string"/>
+        <xs:element name="title" type="xs:string"/>
+        <xs:element name="subtitle" type="xs:string"/>
+        <xs:element name="place" type="xs:string"/>
+        <xs:element name="abbr" type="xs:string"/>
+        <xs:element name="author1" type="xs:string"/>
+        <xs:element name="author2" type="xs:string"/>
+        <xs:element name="year" type="xs:string"/>
+        <xs:element name="month" type="xs:string"/>
+        <xs:element name="day" type="xs:string"/>
+        <xs:element name="note" type="xs:string"/>
+        <xs:element name="url" type="xs:string"/>
+        <xs:element name="judge" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

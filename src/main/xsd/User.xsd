@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+  targetNamespace="http://github.com/arosh/AOJ4s/User"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="user">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:string"/>
+        <xs:element name="name" type="xs:string"/>
+        <xs:element name="affiliation" type="xs:string"/>
+        <xs:element name="registerdate" type="xs:long"/>
+        <xs:element name="lastsubmitdate" type="xs:long"/>
+        <xs:element name="status">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="submission" type="xs:int"/>
+              <xs:element name="solved" type="xs:int"/>
+              <xs:element name="accepted" type="xs:int"/>
+              <xs:element name="wronganswer" type="xs:int"/>
+              <xs:element name="timelimit" type="xs:int"/>
+              <xs:element name="memorylimit" type="xs:int"/>
+              <xs:element name="outputlimit" type="xs:int"/>
+              <xs:element name="runtimeerror" type="xs:int"/>
+              <xs:element name="compileerror" type="xs:int"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="solved_list">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="problem" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="id" type="xs:string"/>
+                    <xs:element name="submissiondate" type="xs:long"/>
+                    <xs:element name="language" type="xs:string"/>
+                    <xs:element name="cputime" type="xs:int"/>
+                    <xs:element name="memory" type="xs:int"/>
+                    <xs:element name="code_size" type="xs:int"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

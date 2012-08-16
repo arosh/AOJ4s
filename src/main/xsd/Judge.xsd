@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+  targetNamespace="http://github.com/arosh/AOJ4s/Judge"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="judge">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="judge_id" type="xs:string"/>
+        <xs:element name="judge_type_code" type="xs:int"/>
+        <xs:element name="judge_type" type="xs:string"/>
+        <xs:element name="submissiondate" type="xs:long"/>
+        <xs:element name="judgedate" type="xs:long"/>
+        <xs:element name="submissiondate_locale" type="xs:string"/>
+        <xs:element name="judgedate_locale" type="xs:string"/>
+        <xs:element name="language" type="xs:string"/>
+        <xs:element name="server" type="xs:integer"/>
+        <xs:element name="cuptime" type="xs:int"/>
+        <xs:element name="memory" type="xs:int"/>
+        <xs:element name="code_size" type="xs:int"/>
+        <xs:element name="status" type="xs:int"/>
+        <xs:element name="accuracy" type="xs:string"/>
+        <xs:element name="problem_id" type="xs:string"/>
+        <xs:element name="problem_title" type="xs:string"/>
+        <xs:element name="submissions" type="xs:int"/>
+        <xs:element name="accepted" type="xs:int"/>
+        <xs:element name="solved" type="xs:integer"/>
+        <xs:element name="user_id" type="xs:string"/>
+        <xs:element name="user_name" type="xs:string"/>
+        <xs:element name="affiliation" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
